@@ -9,4 +9,5 @@ python3 -m pip install --user ansible
 export PATH="/Users/slj/Library/Python/3.10/bin/:$PATH"
 source ~/.bash_profile
 
-### Run A
+### Oneliner git Command
+git pull;git add .;git commit -a -m "Commit to main";git push
