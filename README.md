@@ -11,3 +11,10 @@ source ~/.bash_profile
 
 ### Oneliner git Command
 git pull;git add .;git commit -a -m "Commit to main";git push
+
+#### Change private key permissions
+chmod 600 keys/pinode
+
+#### Run Ansible Test
+ansible-playbook -i inventory.ini playbooks/testtask.yml
+
