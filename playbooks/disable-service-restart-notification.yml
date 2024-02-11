@@ -1,0 +1,33 @@
+- hosts: allnodes
+  become: yes
+  
+  vars:
+    pkgstoinstall: [ libffi-dev, libssl-dev, python3, python3-pip ]
+  
+  tasks:
+    - name: Create /opt/scripts directory
+      ansible.builtin.file:
+        path: /opt/scripts
+        state: directory
+
+    - name: Create disablenotifications.sh script
+      ansible.builtin.copy:
+        content: |
+          #!/bin/bash
+
+          conf_file="/etc/needrestart/needrestart.conf"
+          target_line='$nrconf{restart} = '\''a'\'';'
+
+          # Check if the line is present
+          if grep -q "$nrconf{restart}" "$conf_file"; then
+              # Replace the line with the desired one and remove leading hashtags
+              sed -i "s/#*\(.*\$nrconf{restart}.*\)/$target_line/" "$conf_file"
+              echo "Line modified to $target_line"
+          else
+              echo "Line not found"
+          fi
+        dest: /opt/scripts/disablenotifications.sh
+        mode: '0755'  # Set execution permission
+
+    - name: Run disablenotifications.sh script
+      command: sudo /opt/scripts/disablenotifications.sh

@@ -1,0 +1,6 @@
+- hosts: allnodes
+  become: yes
+  
+  tasks:    
+    - name: Reboot
+      shell: sudo init 6

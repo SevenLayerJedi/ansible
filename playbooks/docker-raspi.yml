@@ -1,4 +1,4 @@
-- hosts: master
+- hosts: allnodes
   become: yes
   
   vars:
@@ -20,39 +20,41 @@
         name: python-configparser
         state: absent
     
-    - name: Modify needrestart configuration
-      blockinfile:
-        path: /etc/needrestart/needrestart.conf
-        block: |
-          #!/bin/bash
-          conf_file="/etc/needrestart/needrestart.conf"
-          target_line='$nrconf{restart} = '\''a'\'';'
-          
-          # Check if the line is present
-          if grep -q "$nrconf{restart}" "$conf_file"; then
-              # Replace the line with the desired one and remove leading hashtags
-              sed -i "s/#*\(.*\$nrconf{restart}.*\)/$target_line/" "$conf_file"
-              echo "Line modified to $target_line"
-          else
-              echo "Line not found"
-          fi
-    
-    - name: Uninstall and Install Docker
+    - name: Uninstall All Things Docker
       shell: |
         sudo apt remove docker-ce docker-ce-cli docker-buildx-plugin docker-ce-rootless-extras docker-compose-plugin -y
         for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg -y; done
+      args:
+        executable: /bin/bash
+
+    - name: Install Docker
+      shell: |
         sudo apt-get update
-        sudo apt-get install ca-certificates curl
+        sudo apt-get install ca-certificates curl -y
         sudo install -m 0755 -d /etc/apt/keyrings
         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
         sudo chmod a+r /etc/apt/keyrings/docker.asc
         echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         sudo apt-get update
-        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
       args:
         executable: /bin/bash
         creates: /usr/bin/docker
-    
+
+    - name: Check if /usr/bin/docker exists
+      stat:
+        path: /usr/bin/docker
+      register: docker_bin_stat
+
+    - name: Check if /lib/systemd/system/docker.service exists
+      stat:
+        path: /lib/systemd/system/docker.service
+      register: docker_service_stat
+
+    - name: Display results
+      debug:
+        msg: "Docker binary exists: {{ docker_bin_stat.stat.exists }}, Docker service file exists: {{ docker_service_stat.stat.exists }}"
+
     - name: make admin user execute docker commands
       shell: usermod -aG docker admin
     
@@ -64,6 +66,3 @@
     
     - name: start docker
       shell: sudo systemctl start docker
-    
-    - name: Reboot
-      shell: sudo init 6
