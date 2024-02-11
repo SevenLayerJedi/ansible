@@ -15,13 +15,8 @@
         name: python-configparser
         state: absent
     
-    - name: get docker convenience script
-      shell: curl -fsSL https://get.docker.com -o get-docker.sh
-      args:
-        creates: /home/pi/get-docker.sh
-    
-    - name: install docker
-      shell: sh /home/pi/get-docker.sh
+    - name: Curl and Install docker
+      shell: curl -sfL https://get.docker.com | sh -
       args:
         creates: /usr/bin/docker
     
@@ -35,9 +30,10 @@
       shell: chmod 666 /var/run/docker.sock
     
     - name: install docker-compose
-      shell: pip3 -v install docker-compose
+      shell: pip3 -v install docker-compose --break-system-packages
       args:
         creates: /usr/local/bin/docker-compose
+    
     - name: start docker
       shell: sudo systemctl start docker
     

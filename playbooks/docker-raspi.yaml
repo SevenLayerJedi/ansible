@@ -1,0 +1,71 @@
+---
+hosts: master
+  become: yes
+  
+  vars:
+    pkgstoinstall: [libffi-dev, libssl-dev, python3, python3-pip]
+  
+  tasks:
+    - name: Ignore PEP 668 because it's silly.
+      ansible.builtin.file:
+        path: /usr/lib/python3.11/EXTERNALLY-MANAGED
+        state: absent
+    
+    - name: Install a list of packages
+      apt:
+        name: "{{ pkgstoinstall }}"
+        update_cache: yes
+    
+    - name: Remove Python-configparser package
+      apt:
+        name: python-configparser
+        state: absent
+    
+        # Modify needrestart configuration
+    - name: Modify needrestart configuration
+      blockinfile:
+        path: /etc/needrestart/needrestart.conf
+        block: |
+          #!/bin/bash
+          conf_file="/etc/needrestart/needrestart.conf"
+          target_line='$nrconf{restart} = '\''a'\'';'
+          
+          # Check if the line is present
+          if grep -q "$nrconf{restart}" "$conf_file"; then
+              # Replace the line with the desired one and remove leading hashtags
+              sed -i "s/#*\(.*\$nrconf{restart}.*\)/$target_line/" "$conf_file"
+              echo "Line modified to $target_line"
+          else
+              echo "Line not found"
+          fi
+    
+    - name: Uninstall and Install Docker
+      shell: |
+        sudo apt remove docker-ce docker-ce-cli docker-buildx-plugin docker-ce-rootless-extras docker-compose-plugin -y
+        for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg -y; done
+        sudo apt-get update
+        sudo apt-get install ca-certificates curl
+        sudo install -m 0755 -d /etc/apt/keyrings
+        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      args:
+        executable: /bin/bash
+        creates: /usr/bin/docker
+    
+    - name: make admin user execute docker commands
+      shell: usermod -aG docker admin
+    
+    - name: unmask docker
+      shell: sudo systemctl unmask docker
+    
+    - name: fix permissions
+      shell: chmod 666 /var/run/docker.sock
+    
+    - name: start docker
+      shell: sudo systemctl start docker
+    
+    - name: Reboot
+      shell: sudo init 6
