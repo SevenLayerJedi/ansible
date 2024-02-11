@@ -1,5 +1,4 @@
----
-hosts: master
+- hosts: master
   become: yes
   
   vars:
@@ -21,7 +20,6 @@ hosts: master
         name: python-configparser
         state: absent
     
-        # Modify needrestart configuration
     - name: Modify needrestart configuration
       blockinfile:
         path: /etc/needrestart/needrestart.conf
