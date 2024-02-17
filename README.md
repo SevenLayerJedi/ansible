@@ -1,7 +1,5 @@
 # ansible
 
-
-
 #### Installing Ansible as current user
 python3 -m pip install --user ansible
 
@@ -25,6 +23,33 @@ Allow members of group sudo to execute any command
 #### No sudo for admin
 admin   ALL=(ALL) NOPASSWD:ALL
 
-
 #### Add admin to the sudo user group
 sudo usermod -aG sudo admin
+
+#### GIT Clone Repo
+cd /opt
+sudo git clone https://github.com/SevenLayerJedi/ansible.git
+
+#### Make Admin Owner
+sudo chown admin:admin -R /opt/ansible/
+
+#### Install venv
+sudo apt install python3.11-venv
+
+#### Create Virtual Environment
+sudo python3 -m venv venv
+
+#### Activate the Environment
+source venv/bin/activate
+
+#### Upgrade PIP
+pip install pip --upgrade
+
+#### Install requirements.txt
+pip install -r requirements.txt
+
+#### Example run playbook
+ansible-playbook -i inventory.ini playbooks/testtask.yml
+
+
+
