@@ -1,0 +1,5 @@
+venv
+.DS_Store
+.jekyll-cache
+_site
+web/_data/status.yml
