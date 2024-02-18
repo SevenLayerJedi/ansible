@@ -17,6 +17,3 @@ services:
       placement:
         constraints:
           - node.hostname==pinode00
-networks:
-  portainer:
-    external: false
