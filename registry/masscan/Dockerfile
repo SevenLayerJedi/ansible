@@ -11,5 +11,6 @@ USER 0
 RUN mkdir -p /opt/output
 RUN chmod 777 /opt/output
 USER $CONTAINER_USER_ID
+RUN echo 'alias masscan="/masscan/bin/masscan"' >> ~/.bashrc
 
-ENTRYPOINT ["/masscan/bin/masscan"]
+ENTRYPOINT ["masscan"]
