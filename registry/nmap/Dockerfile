@@ -10,6 +10,6 @@ RUN mkdir -p /opt/scripts
 RUN chmod 777 /opt/output
 RUN chmod 777 /opt/scripts
 USER $CONTAINER_USER_ID
-COPY ./scripts/random.sh /opt/scripts/random.sh
+COPY /opt/ansible/scripts/random.sh /opt/scripts/random.sh
 
 ENTRYPOINT ["nmap"]
