@@ -1,0 +1,16 @@
+services:
+  db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: pwd
+      MARIADB_DATABASE: audio_service
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: DJ87ai247D*B26
+    volumes:
+      # persist data files into `datadir` volume managed by docker
+      - datadir:/var/lib/mysql
+      # bind-mount any sql files that should be run while initializing
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  datadir:

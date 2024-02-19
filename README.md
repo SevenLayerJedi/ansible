@@ -33,6 +33,9 @@ sudo git clone https://github.com/SevenLayerJedi/ansible.git
 #### Make Admin Owner
 sudo chown admin:admin -R /opt/ansible/
 
+#### Fix SSH Key Permission
+chmod 600 keys/pinode
+
 #### Install venv
 sudo apt install python3.11-venv
 
