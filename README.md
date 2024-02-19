@@ -55,4 +55,15 @@ pip install -r requirements.txt
 ansible-playbook -i inventory.ini playbooks/testtask.yml
 
 
+#### Create Docker Container from Dockerfile
+docker build -t nmap .
+
+
+####
+docker run -v /opt/docker/nmap:/opt/docker/nmap nmap 8.8.8.8 -p 53 -oA /opt/docker/nmap/test
+
+####
+
+
+
 
