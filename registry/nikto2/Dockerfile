@@ -7,5 +7,6 @@ USER 0
 RUN mkdir -p /opt/output
 RUN chmod 777 /opt/output
 USER $CONTAINER_USER_ID
+RUN echo 'alias nikto="/nikto/program/nikto.pl"' >> ~/.bashrc
 
-ENTRYPOINT ["/nikto/program/nikto.pl"]
+ENTRYPOINT ["nikto"]

@@ -55,14 +55,44 @@ pip install -r requirements.txt
 ansible-playbook -i inventory.ini playbooks/testtask.yml
 
 
-#### Create Docker Container from Dockerfile
-docker build -t nmap .
+#### Build nmap docker image
+docker build -t nmap /opt/ansible/registry/nmap
+
+#### Make nmap dir
+sudo mkdir -p /opt/docker/nmap && sudo chmod 777 -R /opt/docker
+
+#### Run nmap docker container
+docker run --rm -v /opt/docker/nmap:/opt/docker/nmap nmap 8.8.8.8 -p 53 -oA /opt/docker/nmap/test
+
+
+#### Build masscan docker image
+docker build -t masscan /opt/ansible/registry/masscan
+
+#### Make masscan dir
+sudo mkdir -p /opt/docker/nmap && sudo chmod 777 -R /opt/docker
+
+#### Run masscan docker container
+docker run --rm -v /opt/docker/masscan:/opt/output masscan 8.8.8.8 -p53 --rate 100 -oX /opt/output/masscan_test.xml
+
+
+
+#### Build nikto docker image
+docker build -t nikto /opt/ansible/registry/nikto2
+
+#### Make nikto dir
+sudo mkdir -p /opt/docker/nikto && sudo chmod 777 -R /opt/docker
+
+#### Run nikto docker container
+docker run --rm -v /opt/docker/nikto:/opt/output nikto -h http://www.foo.com -output /opt/output/nikto_example.xml
+
+
+
 
 
 ####
-docker run -v /opt/docker/nmap:/opt/docker/nmap nmap 8.8.8.8 -p 53 -oA /opt/docker/nmap/test
+/nikto.pl -h http://www.example.com
 
-####
+
 
 
 
