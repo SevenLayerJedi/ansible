@@ -36,4 +36,4 @@
         "docker swarm join --token {{ join_token_worker }} 10.200.1.90:2377"
       args:
         executable: /bin/bash
-      when: inventory_hostname == groups['swarm_worker']
+      when: inventory_hostname in group['swarm_worker']
