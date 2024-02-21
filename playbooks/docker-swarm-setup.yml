@@ -9,6 +9,10 @@
       register: result
       when: inventory_hostname == groups['swarm_leader'][0]
 
+    - debug:
+      msg: "anisble_host {{ ansible_host }}"
+
+
     - name: Get join-token for worker nodes
       set_fact:
         join_token_worker: "{{ hostvars[groups['swarm_leader'][0]].result.swarm_facts.JoinTokens.Worker }}"
