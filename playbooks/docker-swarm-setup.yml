@@ -32,7 +32,7 @@
         msg: "Docker Swarm Worker Token: {{ join_token_worker }}"
 
     - name: Docker - Join Swarm Workers
-      shell: |
+      command: |
         "docker swarm join --token {{ join_token_worker }} 10.200.1.90:2377"
       args:
         executable: /bin/bash
