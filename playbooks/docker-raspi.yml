@@ -1,4 +1,4 @@
-- hosts: allnodes
+- hosts: "{{ variable_host | default('allnodes') }}"
   become: yes
   
   vars:

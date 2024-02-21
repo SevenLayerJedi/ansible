@@ -117,3 +117,9 @@ docker push bugbountytools/nmap:latest
 docker run --rm -v /opt/docker/nmap:/opt/docker/nmap bugbountytools/nmap -sC -sV -p53 8.8.8.8
 
 
+#### Ansible playbook specify variable
+hosts: "{{ variable_host | default('allnodes') }}"
+
+#### Ansible Push to custom host
+ansible-playbook -i inventory.ini playbooks/docker-raspi.yml --extra-vars "variable_host=pinode04"
+
