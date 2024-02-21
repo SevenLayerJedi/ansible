@@ -2,3 +2,9 @@
   docker_swarm:
     state: remove
   when: inventory_hostname == groups['allnodes'][0]
+
+- name: Docker - Leave Swarm
+  shell: |
+    sudo docker swarm leave --force
+  args:
+    executable: /bin/bash
