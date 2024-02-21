@@ -1,6 +1,8 @@
 - hosts: "{{ variable_host | default('allnodes') }}"
-  leader: "Some Junk"
   become: yes
+
+  vars:
+    ansible_host: "{{ groups['swarm_leader'][0] }}"
   
   tasks:
     - name: Init swarm on the first node
