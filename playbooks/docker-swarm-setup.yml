@@ -10,9 +10,10 @@
         state: present
         advertise_addr: "{{ ansible_host }}"
       register: result
-      when: inventory_hostname == groups['swarm_leader'][0]
       debug:
         msg: "Ansible host is: {{ ansible_host }}"
+      when: inventory_hostname == groups['swarm_leader'][0]
+
 
     - name: Get join-token for worker nodes
       set_fact:
