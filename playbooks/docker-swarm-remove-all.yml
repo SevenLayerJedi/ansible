@@ -1,10 +1,7 @@
-- name: Remove node from swarm
-  docker_swarm:
-    state: remove
-  when: inventory_hostname == groups['allnodes'][0]
-
-- name: Docker - Leave Swarm
-  shell: |
-    sudo docker swarm leave --force
-  args:
-    executable: /bin/bash
+- hosts: "{{ variable_host | default('allnodes') }}"
+  become: yes
+  
+  tasks:
+    - name: Remove node from swarm
+      docker_swarm:
+        state: remove
