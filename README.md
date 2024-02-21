@@ -89,11 +89,31 @@ docker run --rm -v /opt/docker/nikto:/opt/output nikto -h http://www.foo.com -ou
 
 
 
+docker run --rm -d -v /opt/docker/masscan:/opt/output --entrypoint "/bin/sh" masscan -c '/masscan/bin/masscan 8.8.8.8 -p53 --rate 100 -oX /opt/output/masscan_test_223.xml;echo $(date +%s) > /opt/output/finish_time.txt'
+
+
+
 ####
-/nikto.pl -h http://www.example.com
+docker container commit c8cc94cb108a nmap:latest
 
 
 
+####
+docker push bugbountytools/nmap:latest
 
+
+docker tag nmap:latest bugbountytools/nmap:latest
+
+docker push bugbountytools/nmap:latest
+
+docker pull bugbountytools/nmap
+
+
+docker build -t bugbountytools/nmap /opt/ansible/registry/nmap
+
+docker push bugbountytools/nmap:latest
+
+
+docker run --rm -v /opt/docker/nmap:/opt/docker/nmap bugbountytools/nmap -sC -sV -p53 8.8.8.8
 
 
