@@ -5,7 +5,13 @@
     z_swarm_leader: "{{ groups['swarm_leader'][0] }}"
 
   tasks:
-    - name: Init swarm on the first node
+    - name: Docker - Leave Swarm with no logic
+      shell: |
+        sudo docker swarm leave --force
+      args:
+        executable: /bin/bash
+    
+    - name: Docker - Init swarm on the Swarm Leader
       community.general.docker_swarm:
         state: present
         advertise_addr: "{{ z_swarm_leader }}"
@@ -16,7 +22,7 @@
       debug:
         msg: "Swarm Leader: {{ z_swarm_leader }}"
 
-    - name: Get join-token for worker nodes
+    - name: Docker - Get Worker Token
       set_fact:
         join_token_worker: "{{ hostvars[groups['swarm_leader'][0]].result.swarm_facts.JoinTokens.Worker }}"
 
@@ -24,7 +30,7 @@
       debug:
         msg: "Docker Swarm Worker Token: {{ join_token_worker }}"
 
-    - name: Join workers
+    - name: Docker - Join Swarm Workers
       community.general.docker_swarm:
         state: join
         join_token: "{{ join_token_worker }}"
