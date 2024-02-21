@@ -33,7 +33,7 @@
 
     - name: Docker - Join Swarm Workers
       shell: |
-        "echo Hello World"
+        echo Hello World
       args:
         executable: /bin/bash
       when: inventory_hostname in groups['swarm_worker']
