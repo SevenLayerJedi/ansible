@@ -33,7 +33,7 @@
 
     - name: Docker - Join Swarm Workers
       shell: |
-        docker swarm join --token {{join_token_worker}} 10.200.1.90:2377
+        "docker swarm join --token {{ join_token_worker }} 10.200.1.90:2377"
       args:
         executable: /bin/bash
         creates: /usr/bin/docker
