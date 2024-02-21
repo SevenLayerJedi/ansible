@@ -2,6 +2,8 @@
   become: yes
   
   tasks:
-    - name: Remove node from swarm
-      docker_swarm:
-        state: remove
+    - name: Docker - Leave Swarm
+      shell: |
+        sudo docker swarm leave --force
+      args:
+        executable: /bin/bash
