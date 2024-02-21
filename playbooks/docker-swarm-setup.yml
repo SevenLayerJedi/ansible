@@ -14,11 +14,15 @@
     
     - name: Debug Test
       debug:
-        msg: "Ansible host is: {{ ansible_host }}"
+        msg: "Swarm Leader: {{ ansible_host }}"
 
     - name: Get join-token for worker nodes
       set_fact:
         join_token_worker: "{{ hostvars[groups['swarm_leader'][0]].result.swarm_facts.JoinTokens.Worker }}"
+
+    - name: Check if Docker Swarm Token Variable is correct
+      debug:
+        msg: "Docker Swarm Worker Token: {{ join_token_worker }}"
 
     - name: Join workers
       community.general.docker_swarm:
