@@ -123,3 +123,11 @@ hosts: "{{ variable_host | default('allnodes') }}"
 #### Ansible Push to custom host
 ansible-playbook -i inventory.ini playbooks/docker-raspi.yml --extra-vars "variable_host=pinode04"
 
+
+#### Init Swarm
+docker swarm init --advertise-addr 10.200.1.90
+
+####
+docker swarm join --token SWMTKN-1-4f5dqq9qcgvxg2tf1stf03nazzrupp3huc3zze33q64ivr5jow-e8rmz1t7142c69h9gp1t59wbv 10.200.1.90:2377
+
+

@@ -1,0 +1,4 @@
+- name: Remove node from swarm
+  docker_swarm:
+    state: remove
+    node_id: allnodes
