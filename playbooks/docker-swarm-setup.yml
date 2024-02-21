@@ -2,19 +2,19 @@
   become: yes
 
   vars:
-    ansible_host: "{{ groups['swarm_leader'][0] }}"
+    z_swarm_leader: "{{ groups['swarm_leader'][0] }}"
 
   tasks:
     - name: Init swarm on the first node
       community.general.docker_swarm:
         state: present
-        advertise_addr: "{{ ansible_host }}"
+        advertise_addr: "{{ z_swarm_leader }}"
       register: result
       when: inventory_hostname == groups['swarm_leader'][0]
     
     - name: Debug Test
       debug:
-        msg: "Swarm Leader: {{ ansible_host }}"
+        msg: "Swarm Leader: {{ z_swarm_leader }}"
 
     - name: Get join-token for worker nodes
       set_fact:
@@ -28,7 +28,7 @@
       community.general.docker_swarm:
         state: join
         join_token: "{{ join_token_worker }}"
-        advertise_addr: "{{ ansible_host }}"
-        remote_addrs: "{{ hostvars[groups['swarm_leader'][0]].ansible_host }}"
+        advertise_addr: "{{ z_swarm_leader }}"
+        remote_addrs: "{{ z_swarm_leader }}"
       when:
         - inventory_hostname in groups['swarm_workers']
