@@ -33,7 +33,7 @@
 
     - name: Docker - Join Swarm Workers
       shell: |
-        echo Hello World {{ join_token_worker }}
+        docker swarm join --token {{ join_token_worker }} 10.200.1.90:2377
       args:
         executable: /bin/bash
       when: inventory_hostname in groups['swarm_worker']
