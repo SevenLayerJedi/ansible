@@ -36,6 +36,6 @@
         state: join
         join_token: "{{ join_token_worker }}"
         advertise_addr: "{{ z_swarm_leader }}"
-        remote_addrs: "{{ z_swarm_leader }}"
+        remote_addrs: "{{ z_swarm_leader }}:2377"
       when:
         - inventory_hostname in groups['swarm_workers']
