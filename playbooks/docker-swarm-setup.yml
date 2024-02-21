@@ -12,7 +12,7 @@
       register: result
       when: inventory_hostname == groups['swarm_leader'][0]
     
-    -name: Debug Test
+    - name: Debug Test
       debug:
         msg: "Ansible host is: {{ ansible_host }}"
 
