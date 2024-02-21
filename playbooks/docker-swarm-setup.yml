@@ -3,7 +3,7 @@
 
   vars:
     ansible_host: "{{ groups['swarm_leader'][0] }}"
-  
+
   tasks:
     - name: Init swarm on the first node
       community.general.docker_swarm:
@@ -11,6 +11,8 @@
         advertise_addr: "{{ ansible_host }}"
       register: result
       when: inventory_hostname == groups['swarm_leader'][0]
+      debug:
+        msg: "Ansible host is: {{ ansible_host }}"
 
     - name: Get join-token for worker nodes
       set_fact:
