@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nmap-job
+spec:
+  template:
+    metadata:
+      name: nmap-pod
+    spec:
+      containers:
+      - name: nmap-container
+        image: bugbountytools/nmap
+        command: ["nmap"]
+        args: ["-sC", "-sV", "-p53", "8.8.8.8"]
+      restartPolicy: Never
+  backoffLimit: 4
