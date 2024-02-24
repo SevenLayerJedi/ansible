@@ -11,6 +11,9 @@ spec:
       - name: nmap-container
         image: bugbountytools/nmap
         command: ["nmap"]
-        args: ["-sC", "-sV", "-p53", "8.8.8.8"]
+        args: ["-sC", "-sV", "-p53", "$(IP_ADDRESS)"]
+        env:
+        - name: IP_ADDRESS
+          value: "8.8.8.8"
       restartPolicy: Never
   backoffLimit: 4

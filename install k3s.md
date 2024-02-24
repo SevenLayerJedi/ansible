@@ -80,3 +80,38 @@ sudo wget https://raw.github.com/Hexxeh/rpi-update/master/rpi-update -O /usr/bin
 
 
 Feb 23 21:33:41 pinode01 k3s[4220]: time="2024-02-23T21:33:41-07:00" level=info msg="Waiting to retrieve agent configuration; server is not ready: Node password rejected, duplicate hostname or contents of '/etc/rancher/node/password' ma>
+
+
+
+
+####
+kubectl run NAME --image=image [--env="key=value"] [--port=port]
+[--dry-run=server|client] [--overrides=inline-json]
+[--command] -- [COMMAND] [args...]
+
+
+####
+# run bash in a container with psql installed 
+# on your namespace
+# kubectl --namespace myproject \
+#   run -it --rm psql --image=postgres:13 -- bash;
+
+kubectl run -d --rm nmap -v /mnt/picluster:/opt/output \
+  bugbountytools/nmap -sC -sV -p53 8.8.8.8;
+
+# docker run --rm -v /opt/docker/nmap:/opt/docker/nmap bugbountytools/nmap -sC -sV -p53 8.8.8.8
+
+kubectl run tmp-shell --restart=Never --rm -i --tty --image bugbountytools/nmap -- /bin/bash
+
+kubectl run tmp-shell --restart=Never --rm -i --tty --image centos -- /bin/bash
+
+kubectl run tmp-shell --rm -i --tty --restart=Never --image=radial/busyboxplus:curl -- /bin/sh
+
+kubectl run tmp-shell --restart=Never --rm --image bugbountytools/nmap -- -sC -sV -p53 8.8.8.8
+
+kubectl apply -f nmap-job.yaml --param=IP_ADDRESS=192.168.1.1
+
+
+
+
+
