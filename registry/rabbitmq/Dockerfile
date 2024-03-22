@@ -8,12 +8,15 @@ COPY rabbitmq.conf /etc/rabbitmq/
 RUN rabbitmq-plugins enable --offline rabbitmq_management
 
 # Switch to Root
-USER 0
+#USER 0
+
+# Wait 5 seconds
+RUN sleep 5
 
 # Set up RabbitMQ user and permissions
-RUN rabbitmqctl add_user your_user your_password
-RUN rabbitmqctl set_user_tags your_user administrator
-RUN rabbitmqctl set_permissions -p / your_user ".*" ".*" ".*"
+RUN rabbitmqctl add_user admin admin
+RUN rabbitmqctl set_user_tags admin administrator
+RUN rabbitmqctl set_permissions -p / admin ".*" ".*" ".*"
 
 # Expose management plugin port
 EXPOSE 15672
