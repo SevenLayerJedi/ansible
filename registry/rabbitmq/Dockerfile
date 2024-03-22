@@ -10,6 +10,9 @@ RUN rabbitmq-plugins enable --offline rabbitmq_management
 # Switch to Root
 #USER 0
 
+# Start RabbitMQ service
+RUN service rabbitmq-server start
+
 # Wait 5 seconds
 RUN sleep 5
 
