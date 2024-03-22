@@ -33,3 +33,6 @@ EXPOSE 15672
 
 # Define the command to run when the container starts
 #CMD ["/etc/rabbitmq/init.sh"]
+
+# Define the command to run when the container starts
+CMD ["tail", "-f", "/dev/null"]
