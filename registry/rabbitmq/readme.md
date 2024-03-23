@@ -1,3 +1,6 @@
+# Update Repo
+cd /opt/ansible && git pull && cd /opt/ansible/registry/rabbitmq/
+
 # Create Docker Image
 cd /opt/ansible/registry/rabbitmq
 docker build -t bbt-rabbitmq .
@@ -24,4 +27,5 @@ docker exec -it bbt-rabbitmq /bin/bash
 rabbitmqctl status
 
 #
-
+cd  /etc/rabbitmq/conf.d/
+echo management_agent.disable_metrics_collector = false > management_agent.disable_metrics_collector.conf 

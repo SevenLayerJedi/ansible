@@ -3,7 +3,8 @@ FROM rabbitmq:3.9
 
 # Copy custom RabbitMQ configuration
 COPY rabbitmq.conf /etc/rabbitmq/
-#COPY definitions.json /etc/rabbitmq/
+COPY definitions.json /etc/rabbitmq/
+COPY zzz_enable_stats.conf /etc/rabbitmq/conf.d/
 
 # Enable RabbitMQ Management Plugin
 RUN rabbitmq-plugins enable --offline rabbitmq_management
