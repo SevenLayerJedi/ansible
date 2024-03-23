@@ -4,5 +4,5 @@
   "target_type": "DOMAINNAME",
   "task_description": "Run Full Nmap scan",
   "target_destination": "example.com",
-  "cmd": "nmap -sC -sV -oA /opt/nmap/d2c9baf9d8eac5c7361194b71d29b3f10ccdee02/nmap example.com"
+  "cmd": "nmap -sC -sV -oA /mnt/nvme/nmap/d2c9baf9d8eac5c7361194b71d29b3f10ccdee02/nmap example.com"
 }

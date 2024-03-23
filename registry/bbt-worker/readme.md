@@ -8,4 +8,4 @@ docker build -t bbt-worker .
 docker run -d --name bbt-worker -v /mnt/nvme/nmap:/mnt/nvme/nmap bbt-worker
 
 # connect to docker container
-docker exec -it bbt-worker /bin/bash
+docker exec -it bbt-worker /bin/sh

@@ -8,4 +8,4 @@ docker build -t bbt-jobproducer .
 docker run -d --name bbt-jobproducer -v /mnt/nvme/jobs/bugbounty:/mnt/nvme/jobs/bugbounty bbt-jobproducer
 
 # connect to docker container
-docker exec -it bbt-jobproducer /bin/bash
+docker exec -it bbt-jobproducer /bin/sh
