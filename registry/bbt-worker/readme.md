@@ -1,11 +1,11 @@
 # Update Repo
-cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-jobpworker/
+cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-worker/
 
 # Build Docker Image
-docker build -t bbt-jobworker .
+docker build -t bbt-worker .
 
 # Start Docker Image
-docker run -d --name bbt-jobworker -v /mnt/nvme/nmap:/mnt/nvme/jobs/bugbounty bbt-jobworker
+docker run -d --name bbt-worker -v /mnt/nvme/nmap:/mnt/nvme/jobs/bugbounty bbt-worker
 
 # connect to docker container
-docker exec -it bbt-jobproducer /bin/bash
+docker exec -it bbt-worker /bin/bash
