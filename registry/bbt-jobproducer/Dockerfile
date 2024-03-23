@@ -13,4 +13,4 @@ RUN chmod +x /opt/scripts/job_creator.py
 RUN pip install pika
 
 # Run the Python script via crontab
-CMD ["sh", "-c", "echo '*/1 * * * * /usr/local/bin/python /app/job_creator.py' | crontab - && crond -f"]
+CMD ["sh", "-c", "echo '*/1 * * * * /usr/local/bin/python /opt/scripts/job_creator.py' | crontab - && crond -f"]
