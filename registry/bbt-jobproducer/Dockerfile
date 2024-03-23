@@ -2,7 +2,7 @@
 FROM python:3.9-alpine
 
 # Set the working directory
-mkdir /opt/scripts
+RUN mkdir /opt/scripts
 WORKDIR /opt/scripts
 
 # Copy the Python script into the container
