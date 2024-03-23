@@ -15,7 +15,6 @@ RUN pip install pika
 #### Install nmap
 # /usr/bin/nmap
 
-RUN cd / && \
 RUN apk add --no-cache nmap 
 RUN apk add --no-cache nmap-scripts 
 
