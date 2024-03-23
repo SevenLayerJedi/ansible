@@ -1,3 +1,4 @@
+#!/usr/local/bin/python
 import os
 import glob
 import hashlib
@@ -6,7 +7,7 @@ import pika
 import time
 
 # RabbitMQ connection parameters
-RABBITMQ_HOST = 'localhost'
+RABBITMQ_HOST = '10.200.1.91'
 RABBITMQ_PORT = 5672
 RABBITMQ_USERNAME = 'admin'
 RABBITMQ_PASSWORD = 'admin'

@@ -1,0 +1,8 @@
+{
+  "job_id": "d2c9baf9d8eac5c7361194b71d29b3f10ccdee02",
+  "cmd_name": "nmap_full",
+  "target_type": "DOMAINNAME",
+  "task_description": "Run Full Nmap scan",
+  "target_destination": "example.com",
+  "cmd": "nmap -sC -sV -oA /opt/nmap/d2c9baf9d8eac5c7361194b71d29b3f10ccdee02/nmap example.com"
+}

@@ -1,0 +1,8 @@
+{
+  "job_id": "7d6c9b90b30a85957c4f106e8d3e9bfbd9d800b2",
+  "cmd_name": "nmap_quick",
+  "target_type": "DOMAINNAME",
+  "task_description": "Run Quick Nmap scan",
+  "target_destination": "example.com",
+  "options": "-oA /opt/nmap/example.com"
+}
