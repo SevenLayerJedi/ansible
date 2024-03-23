@@ -19,3 +19,9 @@ encode_password "admin"
 
 # connect to docker container
 docker exec -it bbt-rabbitmq /bin/bash
+
+#
+rabbitmqctl status
+
+#
+

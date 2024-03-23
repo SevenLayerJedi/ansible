@@ -3,7 +3,7 @@ FROM rabbitmq:3.9
 
 # Copy custom RabbitMQ configuration
 COPY rabbitmq.conf /etc/rabbitmq/
-COPY definitions.json /etc/rabbitmq/
+#COPY definitions.json /etc/rabbitmq/
 
 # Enable RabbitMQ Management Plugin
 RUN rabbitmq-plugins enable --offline rabbitmq_management
@@ -35,4 +35,5 @@ EXPOSE 15672
 #CMD ["/etc/rabbitmq/init.sh"]
 
 # Define the command to run when the container starts
-CMD ["tail", "-f", "/dev/null"]
+# CMD ["tail", "-f", "/dev/null"]
+RUN cat /etc/rabbitmq/rabbitmq.conf
