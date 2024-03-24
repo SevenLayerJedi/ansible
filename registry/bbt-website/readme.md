@@ -15,4 +15,4 @@ apt update && apt install net-tools
 netstat -tulpn
 service apache2 restart
 
-
+docker stop bbt-website && docker rmi bbt-website
