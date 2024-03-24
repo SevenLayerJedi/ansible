@@ -3,7 +3,7 @@ FROM node:latest
 
 # Install PHP and other dependencies
 RUN apt-get update && apt-get install -y \
-    php8.2.7 \
+    php \
     apache2 \
     php-cli \
     php-mysql \
@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
 
 # Get PHP Version
 RUN php -v
+
+# Show current version if below a2enmod command fails
+# docker build  --progress=plain --no-cache -t bbt-website .
 
 # Enable Apache modules for PHP
 RUN a2enmod php8.2.7
