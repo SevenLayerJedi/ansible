@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache modules for PHP
-RUN a2enmod php7.4
+RUN a2enmod php
 
 # Install Bootstrap CSS (optional)
 RUN mkdir -p /var/www/html/css && \
