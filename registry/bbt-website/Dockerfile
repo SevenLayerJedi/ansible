@@ -38,8 +38,8 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN composer require php-amqplib/php-amqplib
 
 # Expose ports 80 and 443
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
+EXPOSE 8443
 
 # Start Apache web server
 CMD ["apache2ctl", "-D", "FOREGROUND"]
