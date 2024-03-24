@@ -5,7 +5,7 @@ cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-website/
 docker build -t bbt-website .
 
 # Start Docker Image
-docker run -d --rm --name bbt-worker -v /mnt/nvme/www/html:/var/www/html bbt-website
+docker run -d --rm --name bbt-website -v /mnt/nvme/www/html:/var/www/html bbt-website
 
 # connect to docker container
-docker exec -it bbt-worker /bin/sh
+docker exec -it bbt-website /bin/sh
