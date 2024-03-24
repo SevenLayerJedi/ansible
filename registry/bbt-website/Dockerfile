@@ -1,6 +1,11 @@
 # Use a base image that includes PHP and Node.js
 FROM node:latest
 
+RUN mkdir /opt/scripts
+COPY init.sh /opt/scripts/init.sh
+RUN chmod +x /opt/scripts/init.sh
+RUN /opt/scripts/init.sh
+
 # Install PHP and other dependencies
 RUN apt-get update && apt-get install -y \
     php8.2 \
@@ -40,6 +45,9 @@ COPY index.php /var/www/html/index.php
 # Copy Apache configuration file
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Extra
+
 
 # Install php-amqplib/php-amqplib using Composer
 RUN composer require php-amqplib/php-amqplib
