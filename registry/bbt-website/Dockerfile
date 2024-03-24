@@ -3,7 +3,7 @@ FROM node:latest
 
 # Install PHP and other dependencies
 RUN apt-get update && apt-get install -y \
-    php \
+    php8.2.7 \
     apache2 \
     php-cli \
     php-mysql \
@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 RUN php -v
 
 # Enable Apache modules for PHP
-RUN a2enmod php8.1
+RUN a2enmod php8.2.7
 
 # Install Bootstrap CSS (optional)
 RUN mkdir -p /var/www/html/css && \
