@@ -39,6 +39,7 @@ COPY index.php /var/www/html/index.php
 
 # Copy Apache configuration file
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Install php-amqplib/php-amqplib using Composer
 RUN composer require php-amqplib/php-amqplib
