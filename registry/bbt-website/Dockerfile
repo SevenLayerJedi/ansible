@@ -4,12 +4,9 @@ FROM php:8.2-apache
 # Install Apache modules and enable proxy modules
 RUN a2enmod proxy proxy_http
 
-RUN apt-get update && apt-get install -y libmcrypt-dev \
-    mysql-client libmagickwand-dev --no-install-recommends
-RUN pecl install imagick
-RUN docker-php-ext-enable imagick 
-RUN docker-php-ext-install mcrypt pdo_mysql 
-RUN chmod -R o+rw laravel-master/bootstrap laravel-master/storage
+# Copy Node.js from the Node.js image to the PHP-Apache image
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+COPY --from=node /opt /opt
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
