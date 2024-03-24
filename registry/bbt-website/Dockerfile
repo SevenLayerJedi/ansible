@@ -1,60 +1,17 @@
-# Use a base image that includes PHP and Node.js
-FROM node:latest
+# Use a base image with Node.js and PHP
+FROM node:latest AS node
+FROM php:8.2-apache
 
-RUN mkdir /opt/scripts
-COPY init.sh /opt/scripts/init.sh
-RUN chmod +x /opt/scripts/init.sh
-RUN /opt/scripts/init.sh
+# Copy Node.js from the Node.js image to the PHP-Apache image
+COPY --from=node /usr/local/bin/node /usr/local/bin/
+COPY --from=node /opt /opt
 
-# Install PHP and other dependencies
-RUN apt-get update && apt-get install -y \
-    php8.2 \
-    apache2 \
-    php-cli \
-    php-mysql \
-    php-mbstring \
-    php-curl \
-    php-json \
-    php-xml \
-    php-zip \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install Apache modules and enable proxy modules
+RUN a2enmod proxy proxy_http
 
-# Get PHP Version
-RUN php -v
-
-# Show current version if below a2enmod command fails
-# docker build  --progress=plain --no-cache -t bbt-website .
-
-# Enable Apache modules for PHP
-RUN a2enmod php8.2
-
-# Install Bootstrap CSS (optional)
-RUN mkdir -p /var/www/html/css && \
-    curl -sS https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css -o /var/www/html/css/bootstrap.min.css
-
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Set working directory for PHP files
-WORKDIR /var/www/html
-
-# Copy PHP files to the container
-COPY index.php /var/www/html/index.php
-
-# Copy Apache configuration file
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-# Extra
-
-
-# Install php-amqplib/php-amqplib using Composer
-RUN composer require php-amqplib/php-amqplib
-
-# Expose ports 80 and 443
+# Set Apache listening ports
 EXPOSE 8080
 EXPOSE 8443
 
-# Start Apache web server
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+# Start Apache in foreground
+CMD ["apache2-foreground"]

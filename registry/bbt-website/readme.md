@@ -9,3 +9,10 @@ docker run -d --rm -p 8080:8080 -p 8443:443 --name bbt-website -v /mnt/nvme/www/
 
 # connect to docker container
 docker exec -it bbt-website /bin/sh
+
+#
+apt update && apt install net-tools
+netstat -tulpn
+service apache2 restart
+
+
