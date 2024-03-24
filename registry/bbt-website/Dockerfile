@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Get PHP Version
+RUN php -v
+
 # Enable Apache modules for PHP
 RUN a2enmod php8.1
 
