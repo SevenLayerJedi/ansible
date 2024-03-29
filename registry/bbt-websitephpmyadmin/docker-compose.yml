@@ -1,9 +1,12 @@
-version: '3.1'
-services:  
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.9.0.1-armhf
-    ports:
-      - "8081:80"
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
     environment:
-      PMA_HOST: bbt-website-bbt-mysql-1
-      MYSQL_ROOT_PASSWORD: admin
+      PMA_HOST: bbt-mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
