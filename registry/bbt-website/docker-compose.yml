@@ -1,7 +1,6 @@
 version: "3.9"
 services:
   webserver:
-    dockerfile: Dockerfile
     container_name: bbt-webserver
     build:
       context: .
