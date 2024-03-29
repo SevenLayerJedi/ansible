@@ -1,6 +1,7 @@
 version: "3.9"
   bbt-mysql:
     image: mysql:8.0
+    container_name: bbt-mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: bbt
