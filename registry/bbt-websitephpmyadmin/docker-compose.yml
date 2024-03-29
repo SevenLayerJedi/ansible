@@ -1,8 +1,7 @@
 version: '3.1'
 services:  
   phpmyadmin:
-    platform: linux/arm64
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:4.9.0.1-armhf
     ports:
       - "8081:80"
     environment:
