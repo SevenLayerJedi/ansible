@@ -9,7 +9,7 @@ cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-website/
 # docker run -d  --name bbt-alpine bbt-alpine
 
 # Build DOcker Container with composer
-docker-compose up -d
+docker compose up -d
 
 # docker run -it --rm bbt-alpine /bin/sh
 
