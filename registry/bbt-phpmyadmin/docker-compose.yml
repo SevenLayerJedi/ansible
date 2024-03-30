@@ -2,9 +2,7 @@ version: "3.9"
 services:
   phpmyadmin:
     image: phpmyadmin
-    container_name: pma
-    links:
-      - db
+    container_name: bbt-phpmyadmin
     environment:
       PMA_HOST: bbt-mysql
       PMA_PORT: 3306
