@@ -7,6 +7,5 @@ services:
       dockerfile: Dockerfile
     volumes:
       - /mnt/nvme/www/html:/var/www/html
-      - /mnt/nvme/mysql:/var/lib/mysql
     ports:
       - 8000:80
