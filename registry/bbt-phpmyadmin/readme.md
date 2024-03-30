@@ -1,8 +1,11 @@
 # Update Repo
-cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-websitephpmyadmin/
+cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-phpmyadmin/
 
 # Build DOcker Container with composer
 docker compose up -d
+
+
+
 
 docker run --name myadmin -d -e PMA_HOST=bbt-website-bbt-mysql-1 -p 8080:80 sk278/phpmyadmin-armhf
 
