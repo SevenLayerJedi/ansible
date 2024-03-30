@@ -1,5 +1,7 @@
+version: "3.9"
+services:
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin
     container_name: pma
     links:
       - db
