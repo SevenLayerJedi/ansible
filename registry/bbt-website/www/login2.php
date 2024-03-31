@@ -20,7 +20,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
         header("Location: index.php?error=Password is required");
         exit();
     }else{
-        $sql = "SELECT * FROM users WHERE user_name='$uname' AND password='$pass'";
+        $sql = "SELECT * FROM users WHERE username='$uname' AND password='$pass'";
         $result = mysqli_query($conn, $sql);
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
@@ -42,6 +42,6 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
         }
     }
 }else{
-    header("Location: index.php");
+    header("Location: login2.php");
     exit();
 }
