@@ -30,7 +30,7 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
                 $_SESSION['name'] = $row['username'];
                 $_SESSION['id'] = $row['id'];
 
-                header("Location: login2.php");
+                header("Location: index.php");
                 exit();
             }else{
                 header("Location: login2.php?error=Incorect User name or password");
@@ -42,6 +42,6 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
         }
     }
 }else{
-    header("Location: login2.php");
+    header("Location: index.php");
     exit();
 }

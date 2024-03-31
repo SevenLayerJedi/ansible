@@ -427,7 +427,6 @@
 
 <?php 
     }else{
-
         header("Location: login2.php");
         exit();
     }
