@@ -4,7 +4,7 @@ session_start();
 $username = "admin";
 $email    = "admin";
 $db_server = "10.200.1.91";
-$db_port = "3306";
+$dbname = "bbt";
 $errors = array();
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'registration');
+$db = mysqli_connect($servername, $username, $password, $dbname);
