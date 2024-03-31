@@ -255,7 +255,7 @@
         </div>
         </div>
         <?php
-        $servername = "10.200.1.90";
+        $servername = "10.200.1.91";
         $username = "admin";
         $password = "admin";
         $dbname = "registration";
