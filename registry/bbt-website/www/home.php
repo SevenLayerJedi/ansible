@@ -178,7 +178,7 @@
         $dbname = "bbt";
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
-        $sqll = "SELECT  * from sales_stats WHERE month='Mar' ";
+        $sqll = "SELECT  * from sales_stats";
         if (mysqli_query($conn, $sqll)) {
             echo "";
         } else {
