@@ -25,12 +25,12 @@ if (isset($_POST['uname']) && isset($_POST['password'])) {
         if (mysqli_num_rows($result) === 1) {
             $row = mysqli_fetch_assoc($result);
             if ($row['email'] === $uname && $row['password'] === $pass) {
-                echo "Logged in!";
                 $_SESSION['user_name'] = $row['email'];
                 $_SESSION['name'] = $row['username'];
                 $_SESSION['id'] = $row['id'];
 
                 header("Location: home.php");
+                echo "Logged in!";
                 exit();
             }else{
                 header("Location: index.php?error=Incorect User name or password");
