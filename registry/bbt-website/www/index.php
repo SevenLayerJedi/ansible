@@ -19,7 +19,7 @@
      <div class="card-header">Login</div>
      <div class="card-body">
        <form method="post" action="login2.php">
-          <!-- <?php include "errors.php"; ?> -->
+          
           <?php if (isset($_GET['error'])) { ?>
             <p class="error"><?php echo $_GET['error']; ?></p>
         <?php } ?>
