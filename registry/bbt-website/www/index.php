@@ -166,7 +166,7 @@
         </ol>
         <!-- Icon Cards-->
         <?php
-        $servername = "localhost";
+        $servername = "10.200.1.91";
         $username = "admin";
         $password = "admin";
         $dbname = "registration";
