@@ -167,8 +167,8 @@
         <!-- Icon Cards-->
         <?php
         $servername = "localhost";
-        $username = "root";
-        $password = "";
+        $username = "admin";
+        $password = "admin";
         $dbname = "registration";
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
