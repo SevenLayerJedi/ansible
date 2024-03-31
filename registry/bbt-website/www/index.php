@@ -258,7 +258,7 @@
         $servername = "10.200.1.91";
         $username = "admin";
         $password = "admin";
-        $dbname = "registration";
+        $dbname = "bbt";
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
 
