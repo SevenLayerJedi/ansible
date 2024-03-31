@@ -1,6 +1,6 @@
 <?php 
     session_start();
-    if (isset($_SESSION['id']) && isset($_SESSION['user_name'])) {
+    if (isset($_SESSION['id']) && isset($_SESSION['user_name'])){
 ?>
 
 <!DOCTYPE html>
@@ -427,7 +427,8 @@
 
 <?php 
     }else{
+
         header("Location: login2.php");
         exit();
     }
- ?>
+?>
