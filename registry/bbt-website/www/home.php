@@ -221,7 +221,7 @@
 
         <!-- Jobs in Queue -->
         <div class="col-xl-4 col-sm-6 mb-4">
-        <div class="card text-white bg-warning o-hidden h-100">
+        <div class="card text-white bg-dark o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-list"></i>
