@@ -408,7 +408,7 @@
         <script src="js/dataTables.bootstrap4.js"></script>
         <script src="js/sb-admin.min.js"></script>
         <script src="js/sb-admin-datatables.min.js"></script>
-        <script src="js/sb-admin-charts.min.js"></script>
+
         </div>
     </body>
 </html>
