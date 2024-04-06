@@ -262,8 +262,26 @@
         </div>
         </div>
 
+        <!-- New Code -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            function fetchJobActivity() {
+                $.ajax({
+                    url: "fetch_job_activity.php",
+                    type: "GET",
+                    success: function(data){
+                        $("#dataTable tbody").html(data); // Replace the tbody contents
+                    }
+                });
+            }
 
+            // Fetch job activity every 5 seconds
+            setInterval(fetchJobActivity, 5000); // Adjust time as needed
 
+            fetchJobActivity(); // Initial fetch
+        });
+        </script>
         
 
 
