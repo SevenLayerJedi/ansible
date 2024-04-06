@@ -276,11 +276,9 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name of Product</th>
-            <th>Price of Product</th>
-            <th>Product Catrogy</th>
-            <th>Product Details</th>
+            <th>JOB ID</th>
+            <th>Job Status</th>
+            <th>Last Update Date</th>
         </tr>
         </thead>
         <?php
@@ -292,7 +290,7 @@
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
-        $sql = "SELECT * from products";
+        $sql = "SELECT * from tbl_jobstatus";
         if (mysqli_query($conn, $sql)) {
             echo "";
         } else {
@@ -306,19 +304,13 @@
         <tbody>
             <tr>
                 <th>
-                    <?php echo $row["product_id"]; ?>
+                    <?php echo $row["JOB_ID"]; ?>
                 </th>
                 <td>
-                    <?php echo $row["product_name"]; ?>
+                    <?php echo $row["JOB_UPDATESTATUS"]; ?>
                 </td>
                 <td>
-                    <?php echo $row["product_price"]; ?>
-                </td>
-                <td>
-                    <?php echo $row["product_cat"]; ?>
-                </td>
-                <td>
-                    <?php echo $row["product_details"]; ?>
+                    <?php echo $row["JOB_DATELASTUPDATED"]; ?>
                 </td>
             </tr>
         </tbody>
