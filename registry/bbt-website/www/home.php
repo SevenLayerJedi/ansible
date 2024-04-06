@@ -159,6 +159,10 @@
             </div>
         </nav>
 
+
+
+
+
         <div class="content-wrapper">
         <div class="container-fluid">
 
@@ -169,9 +173,12 @@
         </li>
         <li class="breadcrumb-item active">My Dashboard</li>
         </ol>
+
+
+
+
         <!-- Icon Cards-->
         <?php
-
         $servername = "10.200.1.91";
         $username = "admin";
         $password = "admin";
@@ -189,12 +196,14 @@
             // output data of each row
             while ($row = mysqli_fetch_assoc($result)) { ?>
         <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="col-xl-4 col-sm-6 mb-4">
         <div class="card text-white bg-primary o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-comments"></i>
         </div>
+
+
         <div class="mr-5"><?php echo $row["Vistors"]; ?> Vistors</div>
         </div>
         <a class="card-footer text-white clearfix small z-1" href="#">
@@ -211,6 +220,8 @@
         <div class="card-body-icon">
         <i class="fa fa-fw fa-list"></i>
         </div>
+
+
         <div class="mr-5"><?php echo $row["revenue"]; ?>  Revenue</div>
         </div>
         <?php }
@@ -260,6 +271,12 @@
         </div>
         </div>
         <?php
+
+
+
+        // End of FIrst Section Cards
+        
+
         $servername = "10.200.1.91";
         $username = "admin";
         $password = "admin";
