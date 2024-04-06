@@ -195,9 +195,12 @@
         if (mysqli_num_rows($result) > 0) {
             // output data of each row
             while ($row = mysqli_fetch_assoc($result)) { ?>
-        <div class="row">
+
+
+
 
         <!--  Total Jobs Completed -->
+        <div class="row">
         <div class="col-xl-4 col-sm-6 mb-4">
         <div class="card text-white bg-primary o-hidden h-100">
         <div class="card-body">
@@ -261,35 +264,7 @@
 
 
 
-        <?php
-        $servername = "10.200.1.91";
-        $username = "admin";
-        $password = "admin";
-        $dbname = "bbt";
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        $sqlll = "SELECT sales from sales_stats";
-        if (mysqli_query($conn, $sqlll)) {
-            echo "";
-        } else {
-            echo "Error: " . $sqlll . "<br>" . mysqli_error($conn);
-        }
-        $result = mysqli_query($conn, $sqlll);
-        $number = [];
-        if (mysqli_num_rows($result) > 0) {
-            // output data of each row
-            while ($row = mysqli_fetch_assoc($result)) {
-                $number[] = $row["sales"];
-            }
-        } else {
-            echo "0 results";
-        }
-        $number_formated = "[" . implode(",", $number) . "]";
-        ?>
-        <script type="text/javascript">
-        window.dataf= <?php echo $number_formated; ?>
-        </script>
+        
 
 
     <!-- Job Activity Card-->
