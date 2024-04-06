@@ -196,14 +196,14 @@
             // output data of each row
             while ($row = mysqli_fetch_assoc($result)) { ?>
         <div class="row">
+
+        <!--  Total Jobs Completed -->
         <div class="col-xl-4 col-sm-6 mb-4">
         <div class="card text-white bg-primary o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-comments"></i>
         </div>
-
-        <!--  Total Jobs Completed -->
         <div class="mr-5"><?php echo $row["Vistors"]; ?> Total Jobs Completed</div>
         </div>
         <a class="card-footer text-white clearfix small z-1" href="#">
@@ -214,14 +214,15 @@
         </a>
         </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
+
+
+        <!-- Jobs in Queue -->
+        <div class="col-xl-4 col-sm-6 mb-4">
         <div class="card text-white bg-warning o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-list"></i>
         </div>
-
-        <!-- Jobs in Queue -->
         <div class="mr-5"><?php echo $row["revenue"]; ?>  Jobs in Queue</div>
         </div>
         <?php }
@@ -237,14 +238,15 @@
         </a>
         </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
+
+
+        <!-- Active Jobs -->
+        <div class="col-xl-4 col-sm-6 mb-4">
         <div class="card text-white bg-success o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-shopping-cart"></i>
         </div>
-
-        <!-- Active Jobs -->
         <div class="mr-5">4 Active Jobs</div>
         </div>
         <a class="card-footer text-white clearfix small z-1" href="#">
@@ -255,23 +257,10 @@
         </a>
         </div>
         </div>
-        <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-danger o-hidden h-100">
-        <div class="card-body">
-        <div class="card-body-icon">
-        <i class="fa fa-fw fa-support"></i>
-        </div>
-        
-        <div class="mr-5">13 New Tickets!</div>
-        </div>
-        <a class="card-footer text-white clearfix small z-1" href="#">
-        <span class="float-left">View Details</span>
-        <span class="float-right">
-        <i class="fa fa-angle-right"></i>
-        </span>
-        </a>
-        </div>
-        </div>
+
+
+
+
         </div>
         <?php
 
