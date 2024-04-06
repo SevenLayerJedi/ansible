@@ -202,7 +202,7 @@
         <!--  Total Jobs Completed -->
         <div class="row">
         <div class="col-xl-4 col-sm-6 mb-4">
-        <div class="card text-white bg-primary o-hidden h-100">
+        <div class="card text-white bg-dark o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-comments"></i>
@@ -245,7 +245,7 @@
 
         <!-- Active Jobs -->
         <div class="col-xl-4 col-sm-6 mb-3">
-        <div class="card text-white bg-success o-hidden h-100">
+        <div class="card text-white bg-dark o-hidden h-100">
         <div class="card-body">
         <div class="card-body-icon">
         <i class="fa fa-fw fa-shopping-cart"></i>
@@ -269,7 +269,7 @@
 
     <!-- Job Activity Card-->
     <div class="card mb-3">
-        <div class="card-header">
+        <div class="card-header text-white bg-dark">
         <i class="fa fa-table"></i> Job Activity</div>
         <div class="card-body">
         <div class="table-responsive">
