@@ -299,45 +299,7 @@
             <th>Last Update Date</th>
         </tr>
         </thead>
-        <?php
-
-        $servername = "10.200.1.91";
-        $username = "admin";
-        $password = "admin";
-        $dbname = "bbt";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        $sql = "SELECT LEFT(JOB_ID, 5) as JOB_ID, JOB_UPDATESTATUS, JOB_DATELASTUPDATED from tbl_jobstatus ORDER BY JOB_DATELASTUPDATED DESC";
-        if (mysqli_query($conn, $sql)) {
-            echo "";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
-        $count = 1;
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) > 0) {
-            // output data of each row
-            while ($row = mysqli_fetch_assoc($result)) { ?>
-        <tbody>
-            <tr>
-                <th>
-                    <?php echo $row["JOB_ID"]; ?>
-                </th>
-                <td>
-                    <?php echo $row["JOB_UPDATESTATUS"]; ?>
-                </td>
-                <td>
-                    <?php echo $row["JOB_DATELASTUPDATED"]; ?>
-                </td>
-            </tr>
-        </tbody>
-
-        <?php $count++;}
-        } else {
-            echo "0 results";
-        }
-        ?>
+       
 
         </table>
         </div>
