@@ -290,7 +290,7 @@
 
         // Create connection
         $conn = new mysqli($servername, $username, $password, $dbname);
-        $sql = "SELECT LEFT(JOB_ID, 5), JOB_UPDATESTATUS, JOB_DATELASTUPDATED from tbl_jobstatus ORDER BY JOB_DATELASTUPDATED DESC";
+        $sql = "SELECT LEFT(JOB_ID, 5) as JOB_ID, JOB_UPDATESTATUS, JOB_DATELASTUPDATED from tbl_jobstatus ORDER BY JOB_DATELASTUPDATED DESC";
         if (mysqli_query($conn, $sql)) {
             echo "";
         } else {
