@@ -261,6 +261,10 @@
         </div>
         </div>
 
+        <!-- End of container-fluid-->
+        <!-- End of content-wrapper-->
+        </div>
+        </div>
 
         <!-- Update Table Code -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -281,7 +285,7 @@
 
                 fetchJobActivity(); // Initial fetch
             });
-            </script>
+        </script>
             
 
 
@@ -311,10 +315,7 @@
 
 
 
-        <!-- End of container-fluid-->
-        <!-- End of content-wrapper-->
-        </div>
-        </div>
+
        
 
 
