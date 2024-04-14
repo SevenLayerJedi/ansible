@@ -26,6 +26,6 @@ service apache2 restart
 
 docker stop bbt-website && docker rmi bbt-website
 
-cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-website/ ; cp -r /opt/ansible/registry/bbt-website/www/* /mnt/nvme/www/html/
+cd /opt/ansible && git pull && cd /opt/ansible/registry/bbt-website/ ; cp -r /opt/ansible/registry/bbt-website/www/* /opt/bbt/www/html/
 
 

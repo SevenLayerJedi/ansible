@@ -30,7 +30,7 @@ def callback(ch, method, properties, body):
         cmd = job_data.get('cmd')
         #
         # Create directory for the job
-        job_dir = f'/mnt/nvme/nmap/{job_id}'
+        job_dir = f'/opt/bbt/nmap/{job_id}'
         os.makedirs(job_dir, exist_ok=True)
         #
         # Create yaml config file
