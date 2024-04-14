@@ -243,6 +243,11 @@
         </div>
 
 
+
+
+        <div class="content-wrapper">
+        <div class="container-fluid">
+
         <!-- Active Jobs -->
         <div class="col-xl-4 col-sm-6 mb-3">
         <div class="card text-white bg-dark o-hidden h-100">
@@ -310,7 +315,8 @@
             </div>
         </div>
 
-
+        </div>
+        </div>
 
 
 
