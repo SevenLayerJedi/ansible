@@ -258,12 +258,7 @@
                 </div>
 
 
-                </div>
-                </div>
 
-                
-        <div class="content-wrapper">
-            <div class="container-fluid">
 
 
                 <!-- Update Table Code -->
@@ -288,7 +283,7 @@
                 </script>
 
                 <!-- Job Activity Card-->
-                <div class="col-xl-12 col-sm-6 mb-12">
+                <div class="col-xl-12 col-sm-6 mb-6">
                 <div class="card">
                     <div class="card-header text-white bg-dark">
                         <i class="fa fa-table"></i> Job Activity</div>
