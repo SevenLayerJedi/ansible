@@ -175,11 +175,9 @@
                 </li>
                 <li class="breadcrumb-item active">My Dashboard</li>
                 </ol>
-            </div>
-        </div>
 
-        <div class="content-wrapper">
-            <div class="container-fluid">
+
+
                 <!-- Icon Cards-->
                 <?php
                 $servername = "10.200.1.91";
@@ -258,13 +256,11 @@
                 </a>
                 </div>
                 </div>
-            </div>
-        </div>
 
 
-        
-        <div class="content-wrapper">
-            <div class="container-fluid">
+
+
+
                 <!-- Update Table Code -->
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
