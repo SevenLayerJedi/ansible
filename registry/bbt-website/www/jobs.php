@@ -34,6 +34,7 @@
                 <li class="breadcrumb-item active">Jobs</li>
                 </ol>
 
+                
                 <!-- Job Activity Cards -->
                 <?php include("job-activity-card.php")?>
            </div>
