@@ -15,7 +15,7 @@
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                    <a class="nav-link" href="product.php">
+                    <a class="nav-link" href="jobs.php">
                         <i class="fa fa-check-square"></i>
                         <span class="nav-link-text">Jobs</span>
                     </a>
