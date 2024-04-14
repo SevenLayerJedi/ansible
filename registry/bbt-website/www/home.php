@@ -258,7 +258,12 @@
                 </div>
 
 
+                </div>
+                </div>
 
+                
+        <div class="content-wrapper">
+            <div class="container-fluid">
 
 
                 <!-- Update Table Code -->
@@ -304,7 +309,7 @@
                     </div>
                 </div>
                 </div>
-                
+
         </div>
         </div>
 
