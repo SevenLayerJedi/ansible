@@ -4,7 +4,7 @@ services:
     image: mysql:8.0
     container_name: bbt-mysql
     volumes:
-      - /mnt/nvme/mysql:/var/lib/mysql
+      - /opt/bbt/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: bbt
