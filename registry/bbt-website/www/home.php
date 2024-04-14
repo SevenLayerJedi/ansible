@@ -283,7 +283,7 @@
                 </script>
 
                 <!-- Job Activity Card-->
-                <div class="card mb-3">
+                <div class="card">
                     <div class="card-header text-white bg-dark">
                         <i class="fa fa-table"></i> Job Activity</div>
                         <div class="card-body">
