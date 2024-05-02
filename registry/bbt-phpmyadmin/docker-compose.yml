@@ -4,10 +4,10 @@ services:
     image: phpmyadmin
     container_name: bbt-phpmyadmin
     environment:
+      - UPLOAD_LIMIT=300M
       PMA_HOST: bbt-mysql
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
-      - UPLOAD_LIMIT=300M
     restart: always
     ports:
       - 8081:80
