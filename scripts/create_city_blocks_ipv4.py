@@ -1,7 +1,8 @@
-import csv
+import pandas as pd
 import mysql.connector
 from mysql.connector import Error
 import zipfile
+import io
 
 def connect_to_database():
     try:
@@ -22,25 +23,22 @@ def create_table(conn):
     try:
         cursor = conn.cursor()
         cursor.execute("""
-            CREATE TABLE IF NOT EXISTS tbl_city_locations_en (
+            CREATE TABLE IF NOT EXISTS tbl_city_blocks_ipv4 (
+                network VARCHAR(255),
                 geoname_id INT,
-                locale_code VARCHAR(255),
-                continent_code VARCHAR(255),
-                continent_name VARCHAR(255),
-                country_iso_code VARCHAR(255),
-                country_name VARCHAR(255),
-                subdivision_1_iso_code VARCHAR(255),
-                subdivision_1_name VARCHAR(255),
-                subdivision_2_iso_code VARCHAR(255),
-                subdivision_2_name VARCHAR(255),
-                city_name VARCHAR(255),
-                metro_code VARCHAR(255),
-                time_zone VARCHAR(255),
-                is_in_european_union BOOLEAN
+                registered_country_geoname_id INT,
+                represented_country_geoname_id INT,
+                is_anonymous_proxy BOOLEAN,
+                is_satellite_provider BOOLEAN,
+                postal_code VARCHAR(255),
+                latitude DECIMAL(10, 6),
+                longitude DECIMAL(10, 6),
+                accuracy_radius INT,
+                is_anycast BOOLEAN
             );
         """)
-        print("Table created successfully.")
         conn.commit()
+        print("Table created successfully.")
     except Error as e:
         print(f"Error creating table: {e}")
     finally:
@@ -51,13 +49,12 @@ def import_csv_to_mysql(conn, zip_filepath, csv_filename):
         cursor = conn.cursor()
         with zipfile.ZipFile(zip_filepath) as z:
             with z.open(csv_filename) as file:
-                reader = csv.reader(line.decode('utf-8') for line in file)
-                next(reader)  # Skip the header row
-                for row in reader:
+                df = pd.read_csv(io.TextIOWrapper(file, 'utf-8'))
+                for index, row in df.iterrows():
                     cursor.execute("""
-                        INSERT INTO tbl_city_locations_en (geoname_id, locale_code, continent_code, continent_name, country_iso_code, country_name, subdivision_1_iso_code, subdivision_1_name, subdivision_2_iso_code, subdivision_2_name, city_name, metro_code, time_zone, is_in_european_union)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-                    """, row)
+                        INSERT INTO tbl_city_blocks_ipv4 (network, geoname_id, registered_country_geoname_id, represented_country_geoname_id, is_anonymous_proxy, is_satellite_provider, postal_code, latitude, longitude, accuracy_radius, is_anycast)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+                    """, tuple(row.fillna(None)))
                 conn.commit()
                 print("Data imported successfully.")
     except Error as e:
@@ -69,11 +66,10 @@ def main():
     conn = connect_to_database()
     if conn and conn.is_connected():
         create_table(conn)
-        zip_filepath = '/opt/geoip/GeoLite2-City-Locations-en.csv.zip'
-        csv_filename = 'GeoLite2-City-Locations-en.csv'
+        zip_filepath = '/opt/geoip/GeoLite2-City-Blocks-IPv4.csv.zip'
+        csv_filename = 'GeoLite2-City-Blocks-IPv4.csv'
         import_csv_to_mysql(conn, zip_filepath, csv_filename)
         conn.close()
 
 if __name__ == '__main__':
     main()
-
