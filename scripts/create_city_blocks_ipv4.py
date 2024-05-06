@@ -46,15 +46,20 @@ def create_table(conn):
 
 def import_csv_to_mysql(conn, zip_filepath, csv_filename):
     try:
+        print(" [+] Creating Cursor")
         cursor = conn.cursor()
+        print(" [+] Opening Zip File")
         with zipfile.ZipFile(zip_filepath) as z:
             with z.open(csv_filename) as file:
-                df = pd.read_csv(io.TextIOWrapper(file, 'utf-8'))
+                print(" [+] Opening CSV")
+                df = pd.read_csv(io.TextIOWrapper(file, 'utf-8'), low_memory=False)
+                print(" [+] Parsing Data Frame")
                 for index, row in df.iterrows():
                     cursor.execute("""
                         INSERT INTO tbl_city_blocks_ipv4 (network, geoname_id, registered_country_geoname_id, represented_country_geoname_id, is_anonymous_proxy, is_satellite_provider, postal_code, latitude, longitude, accuracy_radius, is_anycast)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-                    """, tuple(row.fillna(None)))
+                    """, tuple(row))
+                print(" [+] Commiting Data")
                 conn.commit()
                 print("Data imported successfully.")
     except Error as e:

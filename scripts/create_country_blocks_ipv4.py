@@ -50,7 +50,7 @@ def import_csv_to_mysql(conn, zip_filepath, csv_filename):
                     cursor.execute("""
                         INSERT INTO tbl_country_blocks_ipv4 (network, geoname_id, registered_country_geoname_id, represented_country_geoname_id, is_anonymous_proxy, is_satellite_provider, is_anycast)
                         VALUES (%s, %s, %s, %s, %s, %s, %s);
-                    """, tuple(row.fillna(None)))
+                    """, tuple(row))
                 conn.commit()
                 print("Data imported successfully.")
     except Error as e:
@@ -64,4 +64,9 @@ def main():
         create_table(conn)
         zip_filepath = '/opt/geoip/GeoLite2-Country-Blocks-IPv4.csv.zip'
         csv_filename = 'GeoLite2-Country-Blocks-IPv4.csv'
-        import
+        import_csv_to_mysql(conn, zip_filepath, csv_filename)
+        conn.close()
+
+if __name__ == '__main__':
+    main()
+
