@@ -13,10 +13,10 @@ def connect_to_database():
             database='bbt'
         )
         if conn.is_connected():
-            print("Connected to the database successfully.")
+            print(" [+] Connected to the database successfully.")
             return conn
     except Error as e:
-        print(f"Error connecting to MySQL: {e}")
+        print(f" [-] Error connecting to MySQL: {e}")
         return None
 
 def create_table(conn):
@@ -38,7 +38,7 @@ def create_table(conn):
             );
         """)
         conn.commit()
-        print("Table created successfully.")
+        print(" [+] Table created successfully.")
     except Error as e:
         print(f"Error creating table: {e}")
     finally:

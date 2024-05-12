@@ -87,9 +87,9 @@ try:
                     # Insert job into the job queue
                     try:
                         cursor.execute("""
-                        INSERT INTO tbl_job_queue (job_id, job_type, job_category, job_target, job_created_date)
-                        VALUES (%s, 'nmap_full_tcp', 'nmap', %s, %s)
-                        """, (job_id, network[0], datetime.utcnow()))
+                        INSERT INTO tbl_job_queue (job_id, job_type, job_category, geoname_id, job_target, job_created_date)
+                        VALUES (%s, 'nmap_full_tcp', 'nmap', %s, %s, %s)
+                        """, (job_id, geoname_id, network[0], datetime.utcnow()))
                         print(Fore.GREEN + f"  [+] Job created successfully: {job_id}")
                         #
                         # Also insert into tbl_job_status
