@@ -56,13 +56,15 @@ def update_city_locations_table(jobID, geoNameID):
             """
             cursor.execute(update_query, (geoNameID))
             total_scans = cursor.fetchone()
+            print(" [+] Total Scans: {0}".format(total_scans[0]))
             # Update Fields
             update_query = """
                 UPDATE tbl_city_locations_en SET
                 total_scans = %s,
                 last_scanned_datetime = %s
+                WHERE geoname_id = %s
             """
-            cursor.execute(update_query, (total_scans + 1, current_utc))
+            cursor.execute(update_query, (total_scans[0] + 1, current_utc, geoNameID))
             connection.commit()
             print("  [+] Job Table Updated")
             update_job_status(jobID, f"Updated tbl_city_locations_en Successfully")
