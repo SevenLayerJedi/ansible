@@ -117,7 +117,6 @@ def main():
                                      password=db_config['password'],
                                      database=db_config['database'])
         print(Fore.GREEN + "  [+] Connected to the database successfully")
-        #
         with connection.cursor() as cursor:
             # Query the oldest job in the queue
             cursor.execute("""
