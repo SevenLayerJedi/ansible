@@ -1,2 +1,3 @@
 # Create Private Internet Access secret Creds
-kubectl create secret generic pia-credentials --from-env-file=private/pia-credentials.env
+sudo kubectl create secret generic pia-credentials --from-env-file=/opt/ansible/config/pia_creds.env
+
