@@ -222,7 +222,6 @@ def parse_xml(filename):
 def parse_to_mysql(data, db_config):
     """Given a list of data, inserts the items into a MySQL database."""
     try:
-        print(" [+] Trying to create connection")
         # Establish a connection to the MySQL database
         connection = mysql.connector.connect(
             host=db_config['host'],
@@ -231,7 +230,6 @@ def parse_to_mysql(data, db_config):
             database=db_config['database']
         )
         if connection.is_connected():
-            print(" [+] Trying to create cursor")
             cursor = connection.cursor()
             # port_data.extend((ingestion_time(), starttime, endtime, jobID, host_name, ip_address, port_id, proto,
             #     service_conf, service_method, service, os_name, product, service_extrainfo, 
@@ -240,7 +238,6 @@ def parse_to_mysql(data, db_config):
             #     script_id, script_output))
             #
             # Create table if it doesn't exist
-            print(" [+] Create Table if not exists")
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS tbl_nmap (
                     ingestion_datetime DATETIME,
@@ -268,7 +265,6 @@ def parse_to_mysql(data, db_config):
                     script_output TEXT
                 );
             ''')
-            print(" [+] About to commit to db")
             connection.commit()
             #
             # Insert data into the table
@@ -281,8 +277,6 @@ def parse_to_mysql(data, db_config):
                     state, state_reason, state_ttl, script_id, script_output
                 ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
             '''
-            print(" [+] Created Insert Query: {0}".format(insert_query))
-            print(" [+] Data: {0}".format(data))
             cursor.executemany(insert_query, data)
             connection.commit()
             print('\n[+] Data inserted successfully!\n')
@@ -355,7 +349,8 @@ def get_uri(ip, service, port):
     ldap_port_list = ['389']
     ldaps_port_list = ['636']
     ssh_port_list = ['22']
-    #
+
+
     if port.endswith('43') and port != "143" or port in https_port_list:
         uri = "https://{}:{}".format(ip, port)
     elif port in http_port_list:
@@ -386,7 +381,7 @@ def print_data(data):
 
 
 def main():
-    for filename in args.inputfile:
+    for filename in args.filename:
         # Checks the file path
         if not os.path.exists(filename):
             parser.print_help()
@@ -399,15 +394,11 @@ def main():
                   "Use the -u option to display ports that are 'open|filtered'. "
                   "Exiting.")
             exit()
-        #if args.csv:
-        #    parse_to_csv(data)
-        #if args.mysql:
-        #    parse_to_mysql(data, db_config)
-        #    #parse_to_mysql_test(data)
-        try:
+        if args.csv:
+            parse_to_csv(data)
+        if args.mysql:
             parse_to_mysql(data, db_config)
-        except:
-            print(" [+] jobID: {0}".format(jobID))    
+            #parse_to_mysql_test(data)
         print(" [+] jobID: {0}".format(jobID))
 
 
@@ -418,30 +409,28 @@ if __name__ == '__main__':
                         help="Specify the name of a csv file to write to. "
                              "If the file already exists it will be appended")
     parser.add_argument("-mysql", "--mysql",
-                        nargs='?', const='True',
+                        nargs='?', const='scan.csv',
                         help="Import data to mysql. ")
+    parser.add_argument("-f", "--filename",
+                        nargs='*',
+                        help="Specify a file containing the output of an nmap "
+                             "scan in xml format.")
     parser.add_argument("-j", "--jobid",
                         nargs='*',
                         help="Specify the jobID "
                              "this is a random md5 hash.")
-    parser.add_argument("-i", "--inputfile",
-                        nargs='*',
-                        help="Specify a file containing the output of an nmap "
-                             "scan in xml format.")
     args = parser.parse_args()
-    if not args.inputfile:
+    if not args.filename:
         parser.print_help()
         print("\n[-] Please specify an input file to parse. "
-              "    python3 nmap_xml2mysql.py -i <nmap_scan.xml> -j <jobID>\n")
+              "    python3 nmap_xml2mysql.py -f <nmap_scan.xml> -j <jobID>\n")
         exit()
-    #if args.csv:
-    #    csv_name = args.csv
+    if args.csv:
+        csv_name = args.csv
     #csv_name = /opt/nmap/test/
     #filename = /opt/nmap/test/162.244.69.0_24.xml
-    #if args.jobid:
-    #    jobID = args.jobid
-    #else:
-    #    jobID = generate_random_md5()
-    jobID = args.jobid
-    jobID = jobID[0]
+    if args.jobid:
+        jobID = args.jobid
+    else:
+        jobID = generate_random_md5()
     main()
