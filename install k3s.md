@@ -112,6 +112,25 @@ kubectl run tmp-shell --restart=Never --rm --image bugbountytools/nmap -- -sC -s
 kubectl apply -f nmap-job.yaml --param=IP_ADDRESS=192.168.1.1
 
 
+# Create Master Node
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=v1.27.10+k3s2 sh -
+k3s kubectl get node
+
+# Grab Token
+sudo cat /var/lib/rancher/k3s/server/node-token
+
+# Token
+K103c873233b9086a8bd3f0bfd67b1efd67697a5804ec5b5dee8052bb999a5da256::server:497b4372294904ce5d149e186a95a782
+
+
+# On Slaves
+curl -sfL https://get.k3s.io | K3S_URL=https://YOUR_PI_IP_ADDRESS:6443 K3S_TOKEN=YOUR_REALLY_LONG_PI_TOKEN sh -
+
+
+
+
+
+
 
 
 

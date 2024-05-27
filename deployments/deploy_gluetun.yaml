@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gluetun
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gluetun
+  template:
+    metadata:
+      labels:
+        app: gluetun
+    spec:
+      containers:
+      - name: gluetun
+        image: qmcgaw/gluetun
+        ports:
+        - containerPort: 8000
+        env:
+        - name: VPNSP
+          value: "private internet access"
+        - name: USER
+          valueFrom:
+            secretKeyRef:
+              name: pia-credentials
+              key: USER
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pia-credentials
+              key: PASSWORD
+        volumeMounts:
+        - name: config
+          mountPath: /gluetun/config
+      volumes:
+      - name: config
+        emptyDir: {}

@@ -49,17 +49,21 @@ try:
         # Calculate jobsCountNeeded
         jobsCountNeeded = jobsInQueueMaxSize - jobsInQueue
         addJobs = jobsInQueue < jobsInQueueMaxSize
-
+        #
         # If jobs can be added
         if addJobs and jobsCountNeeded > 0:
             try:
                 # Query for the city locations with the minimum total scans
                 cursor.execute("""
-                SELECT geoname_id
-                FROM tbl_city_locations_en
-                WHERE country_iso_code = 'US' AND
-                      subdivision_1_iso_code = 'CO' AND
-                      total_scans = (SELECT MIN(total_scans) FROM tbl_city_locations_en)
+                SELECT network, geoname_id
+                FROM tbl_city_blocks_ipv4
+                WHERE scans_masscan = (
+                    SELECT LEAST(
+                        MIN(scans_nmap),
+                        MIN(scans_masscan)
+                    )
+                    FROM tbl_city_blocks_ipv4
+                )
                 ORDER BY RAND()
                 LIMIT %s;
                 """, (jobsCountNeeded,))
