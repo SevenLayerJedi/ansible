@@ -20,7 +20,7 @@ sudo kubectl describe mysql-5879c7ccf7-xg7ll
 sudo kubectl logs mysql-5879c7ccf7-xg7ll
 
 # Execute Shell
-sudo kubectl exec -it gluetun-56d758897c-8dmg5 -- /bin/sh
+sudo kubectl exec -it mysql-5bb8b89cbf-cqlpw -- /bin/sh
 
 # List all pods
 sudo kubectl get pods -o wide
