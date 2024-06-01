@@ -1,24 +1,25 @@
+deploy_webserver.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: phpmyadmin
+  name: webserver
   labels:
-    app: phpmyadmin
+    app: webserver
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: phpmyadmin
+      app: webserver
   template:
     metadata:
       labels:
-        app: phpmyadmin
+        app: webserver
     spec:
       nodeSelector:
         kubernetes.io/hostname: pinode01
       containers:
-      - name: phpmyadmin
-        image: bugbountytools/phpmyadmin
+      - name: webserver
+        image: bugbountytools/webserver
         ports:
         - containerPort: 80
         networkMode: "container:gluetun"
@@ -26,13 +27,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: phpmyadmin
+  name: webserver
 spec:
   selector:
-    app: phpmyadmin
+    app: webserver
   ports:
   - protocol: TCP
-    port: 8081
+    port: 8082
     targetPort: 80
-    nodePort: 8081
+    nodePort: 8082
   type: NodePort

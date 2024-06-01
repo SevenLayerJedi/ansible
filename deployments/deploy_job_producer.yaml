@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: worker
+  name: jobproducer
   labels:
-    app: worker
+    app: jobproducer
 spec:
-  replicas: 8
+  replicas: 1
   selector:
     matchLabels:
-      app: worker
+      app: jobproducer
   template:
     metadata:
       labels:
-        app: worker
+        app: jobproducer
     spec:
       containers:
-      - name: worker
-        image: bugbountytools/worker
+      - name: jobproducer
+        image: bugbountytools/jobproducer
         networkMode: "container:gluetun"

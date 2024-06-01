@@ -34,10 +34,17 @@ docker push bugbountytools/worker:v1.0
 docker login
 
 # Tag Image
-docker tag bbt-jobproducer bugbountytools/worker:v1.0
+docker tag bbt-jobproducer bugbountytools/jobproducer:v1.0
 
 # Publish image
-docker push bugbountytools/worker:v1.0
+docker push bugbountytools/jobproducer:v1.0
+
+
+
+
+
+
+
 
 
 

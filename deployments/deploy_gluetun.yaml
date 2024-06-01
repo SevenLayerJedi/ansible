@@ -15,24 +15,20 @@ spec:
       containers:
       - name: gluetun
         image: qmcgaw/gluetun
+        envFrom:
+        - secretRef:
+            name: pia-creds
         ports:
-        - containerPort: 8000
-        env:
-        - name: VPNSP
-          value: "private internet access"
-        - name: USER
-          valueFrom:
-            secretKeyRef:
-              name: pia-credentials
-              key: USER
-        - name: PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: pia-credentials
-              key: PASSWORD
-        volumeMounts:
-        - name: config
-          mountPath: /gluetun/config
-      volumes:
-      - name: config
-        emptyDir: {}
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gluetun
+spec:
+  selector:
+    app: gluetun
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
