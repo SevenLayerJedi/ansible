@@ -2,20 +2,20 @@
 docker login
 
 # Tag Image
-docker tag phpmyadmin bugbountytools/phpmyadmin:v1.0
+docker tag phpmyadmin bugbountytools/phpmyadmin:latest
 
 # Publish image
-docker push bugbountytools/phpmyadmin:v1.0
+docker push bugbountytools/phpmyadmin:latest
 
 
 # Login
 docker login
 
 # Tag Image
-docker tag mysql bugbountytools/mysql:v8.0
+docker tag mysql bugbountytools/mysql:latest
 
 # Publish image
-docker push bugbountytools/mysql:8.0
+docker push bugbountytools/mysql:latest
 
 
 

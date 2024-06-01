@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gluetun
+  namespace: default
+  labels:
+    app: gluetun
 spec:
   replicas: 1
   selector:
@@ -12,22 +15,40 @@ spec:
       labels:
         app: gluetun
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: pinode00
       containers:
       - name: gluetun
         image: qmcgaw/gluetun
         envFrom:
         - secretRef:
             name: pia-creds
-        ports:
-        - containerPort: 80
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
+        volumeMounts:
+        - name: dev-net
+          mountPath: /dev/net
+        - name: etc-resolv-conf
+          mountPath: /etc/resolv.conf
+        - name: lib-modules
+          mountPath: /lib/modules
+      volumes:
+      - name: dev-net
+        hostPath:
+          path: /dev/net
+      - name: etc-resolv-conf
+        hostPath:
+          path: /etc/resolv.conf
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: gluetun
+  namespace: default
 spec:
   selector:
     app: gluetun

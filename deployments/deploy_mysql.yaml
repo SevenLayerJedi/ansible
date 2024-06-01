@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  namespace: default
   labels:
     app: mysql
 spec:
@@ -16,11 +17,17 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: pinode01
+      initContainers:
+      - name: init-iptables
+        image: busybox
+        command:
+        - /bin/sh
+        - -c
+        - |
+          ip route add default via $(dig +short gluetun.default.svc.cluster.local)
       containers:
       - name: mysql
-        image: mysql
-        ports:
-        - containerPort: 3306
+        image: bugbountytools/mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: "admin"
@@ -37,11 +44,13 @@ spec:
       - name: mysql-data
         hostPath:
           path: /opt/bbt/mysql
+          type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: default
 spec:
   selector:
     app: mysql
@@ -49,5 +58,3 @@ spec:
   - protocol: TCP
     port: 3306
     targetPort: 3306
-    nodePort: 30036
-  type: NodePort

@@ -39,6 +39,24 @@ sudo kubectl delete deployment mysql
 # Deploy deployment yaml
 sudo kubectl apply -f /opt/ansible/deployments/deploy_all.yaml
 
+# Create Namespace
+sudo kubectl create namespace bugbounty
+
+# List pods for namespace
+sudo kubectl get pods -n bugbounty -o wide
+
+#
+kubectl describe pod app-with-gluetun -n bugbounty
+
+# Create creds for namespace
+sudo kubectl create secret generic pia-creds --from-env-file=/opt/pia/pia_creds.env -n bugbounty
+
+# Describe the new pod
+sudo kubectl describe pod app-with-gluetun -n bugbounty
+
+
+
+
 
 
 

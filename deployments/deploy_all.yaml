@@ -22,7 +22,7 @@ spec:
     - name: lib-modules
       mountPath: /lib/modules
   - name: mysql
-    image: mysql
+    image: bugbountytools/mysql
     env:
     - name: MYSQL_ROOT_PASSWORD
       value: "admin"
@@ -36,7 +36,7 @@ spec:
     - name: mysql-data
       mountPath: /var/lib/mysql
   - name: phpmyadmin
-    image: phpmyadmin
+    image: bugbountytools/phpmyadmin
     ports:
     - containerPort: 80
     env:
