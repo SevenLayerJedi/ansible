@@ -6,7 +6,7 @@ RUN mkdir /opt/scripts
 WORKDIR /opt/scripts
 
 # Copy the Python script into the container
-COPY /opt/ansible/scripts/worker_create_jobs.py /opt/scripts
+COPY ./scripts/worker_create_jobs.py /opt/scripts
 RUN chmod +x /opt/scripts/worker_create_jobs.py
 
 # Install dependencies
