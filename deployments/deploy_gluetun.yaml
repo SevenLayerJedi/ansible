@@ -20,6 +20,9 @@ spec:
             name: pia-creds
         ports:
         - containerPort: 80
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
 ---
 apiVersion: v1
 kind: Service
