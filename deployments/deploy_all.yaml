@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app-with-gluetun
+  labels:
+    app: app-with-gluetun
+spec:
+  containers:
+  - name: gluetun
+    image: qmcgaw/gluetun
+    envFrom:
+    - secretRef:
+        name: pia-creds
+    securityContext:
+      capabilities:
+        add: ["NET_ADMIN"]
+    volumeMounts:
+    - name: dev-net
+      mountPath: /dev/net
+    - name: etc-resolv-conf
+      mountPath: /etc/resolv.conf
+    - name: lib-modules
+      mountPath: /lib/modules
+  - name: mysql
+    image: mysql
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "admin"
+    - name: MYSQL_DATABASE
+      value: "bbt"
+    - name: MYSQL_USER
+      value: "admin"
+    - name: MYSQL_PASSWORD
+      value: "admin"
+    volumeMounts:
+    - name: mysql-data
+      mountPath: /var/lib/mysql
+  - name: phpmyadmin
+    image: phpmyadmin
+    ports:
+    - containerPort: 80
+    env:
+    - name: UPLOAD_LIMIT
+      value: "300M"
+    - name: PMA_HOST
+      value: "mysql"
+    - name: PMA_PORT
+      value: "3306"
+    - name: PMA_ARBITRARY
+      value: "1"
+  volumes:
+  - name: mysql-data
+    hostPath:
+      path: /opt/bbt/mysql
+      type: DirectoryOrCreate
+  - name: dev-net
+    hostPath:
+      path: /dev/net
+  - name: etc-resolv-conf
+    hostPath:
+      path: /etc/resolv.conf
+  - name: lib-modules
+    hostPath:
+      path: /lib/modules
