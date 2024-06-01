@@ -19,15 +19,23 @@ spec:
         kubernetes.io/hostname: pinode01
       initContainers:
       - name: init-iptables
-        image: busybox
+        image: alpine
         command:
         - /bin/sh
         - -c
         - |
-          ip route add default via $(dig +short gluetun.default.svc.cluster.local)
+          apk add --no-cache bind-tools iproute2
+          GLUETUN_IP=$(dig +short gluetun.default.svc.cluster.local)
+          if [ -z "$GLUETUN_IP" ]; then
+            echo "Failed to resolve gluetun service IP"
+            exit 1
+          fi
+          ip route add default via $GLUETUN_IP
+        securityContext:
+          privileged: true
       containers:
       - name: mysql
-        image: bugbountytools/mysql
+        image: bugbountytools/mysql:8.0
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: "admin"
@@ -45,16 +53,3 @@ spec:
         hostPath:
           path: /opt/bbt/mysql
           type: DirectoryOrCreate
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-  namespace: default
-spec:
-  selector:
-    app: mysql
-  ports:
-  - protocol: TCP
-    port: 3306
-    targetPort: 3306
