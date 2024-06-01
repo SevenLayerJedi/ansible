@@ -1,6 +1,6 @@
 cd /opt/ansible && git pull
 
-
+sudo kubectl apply -f /opt/ansible/deployments/deploy_gluetun.yaml
 sudo kubectl apply -f /opt/ansible/deployments/deploy_mysql.yaml
 sudo kubectl apply -f /opt/ansible/deployments/deploy_phpmyadmin.yaml
 sudo kubectl apply -f /opt/ansible/deployments/deploy_webserver.yaml
