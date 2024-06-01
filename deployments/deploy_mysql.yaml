@@ -21,7 +21,9 @@ spec:
         image: bugbountytools/mysql
         ports:
         - containerPort: 80
-        networkMode: "container:gluetun"
+        envFrom:
+        - secretRef:
+            name: pia-creds
 ---
 apiVersion: v1
 kind: Service
@@ -34,5 +36,5 @@ spec:
   - protocol: TCP
     port: 3306
     targetPort: 80
-    nodePort: 3306
+    nodePort: 30036
   type: NodePort
