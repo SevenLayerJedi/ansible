@@ -18,21 +18,6 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: pinode01
       initContainers:
-      - name: init-iptables
-        image: alpine
-        command:
-        - /bin/sh
-        - -c
-        - |
-          apk add --no-cache bind-tools iproute2
-          GLUETUN_IP=$(dig +short gluetun.default.svc.cluster.local)
-          if [ -z "$GLUETUN_IP" ]; then
-            echo "Failed to resolve gluetun service IP"
-            exit 1
-          fi
-          ip route add default via $GLUETUN_IP
-        securityContext:
-          privileged: true
       containers:
       - name: mysql
         image: bugbountytools/mysql:8.0
