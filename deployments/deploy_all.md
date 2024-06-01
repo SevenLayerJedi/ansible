@@ -36,6 +36,13 @@ sudo kubectl delete deployment gluetun
 sudo kubectl delete deployment phpmyadmin
 sudo kubectl delete deployment mysql
 
+# Deploy deployment yaml
+sudo kubectl apply -f /opt/ansible/deployments/deploy_all.yaml
+
+
+
+
+
 
 
 
