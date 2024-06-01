@@ -18,12 +18,12 @@ spec:
         kubernetes.io/hostname: pinode01
       containers:
       - name: mysql
-        image: bugbountytools/mysql
+        image: bugbountytools/mysql:8.0
         ports:
         - containerPort: 80
-        envFrom:
-        - secretRef:
-            name: pia-creds
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "admin" # Replace with your desired root password
 ---
 apiVersion: v1
 kind: Service
