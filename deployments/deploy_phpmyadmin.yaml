@@ -21,7 +21,6 @@ spec:
         image: bugbountytools/phpmyadmin
         ports:
         - containerPort: 80
-        networkMode: "container:gluetun"
 ---
 apiVersion: v1
 kind: Service
@@ -34,5 +33,5 @@ spec:
   - protocol: TCP
     port: 8081
     targetPort: 80
-    nodePort: 8081
+    nodePort: 30081
   type: NodePort
