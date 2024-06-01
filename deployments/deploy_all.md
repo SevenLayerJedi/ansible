@@ -1,11 +1,13 @@
-kubectl apply -f /opt/ansible/deployments/deploy_gluetun.yaml
-kubectl apply -f /opt/ansible/deployments/deploy_mysql.yaml
-kubectl apply -f /opt/ansible/deployments/deploy_phpmyadmin.yaml
-kubectl apply -f /opt/ansible/deployments/deploy_webserver.yaml
-kubectl apply -f /opt/ansible/deployments/deploy_worker.yaml
-kubectl apply -f /opt/ansible/deployments/deploy_job_producer.yaml
+cd /opt/ansible && git pull
 
-kubectl create secret generic pia-creds --from-env-file=/opt/pia/pia_creds.env
+
+sudo kubectl apply -f /opt/ansible/deployments/deploy_mysql.yaml
+sudo kubectl apply -f /opt/ansible/deployments/deploy_phpmyadmin.yaml
+sudo kubectl apply -f /opt/ansible/deployments/deploy_webserver.yaml
+sudo kubectl apply -f /opt/ansible/deployments/deploy_worker.yaml
+sudo kubectl apply -f /opt/ansible/deployments/deploy_job_producer.yaml
+
+sudo kubectl create secret generic pia-creds --from-env-file=/opt/pia/pia_creds.env
 
 
 
