@@ -31,6 +31,9 @@ spec:
           value: "admin"
         - name: MYSQL_PASSWORD
           value: "admin"
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
