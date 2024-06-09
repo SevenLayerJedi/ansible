@@ -21,18 +21,18 @@ spec:
       - name: gluetun
         image: qmcgaw/gluetun:latest
         env:
-        - name: VPNSP
+        - name: VPN_SERVICE_PROVIDER
           value: "private internet access"
         - name: PIA_USER
           valueFrom:
             secretKeyRef:
               name: pia-creds
-              key: USERNAME
+              key: PIA_USER
         - name: PIA_PASS
           valueFrom:
             secretKeyRef:
               name: pia-creds
-              key: PASSWORD
+              key: PIA_PASS
         - name: TZ
           value: "UTC"
         ports:
