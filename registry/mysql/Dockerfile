@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM ubuntu:20.04
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
