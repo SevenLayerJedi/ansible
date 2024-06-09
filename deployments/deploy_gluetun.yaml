@@ -2,9 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gluetun
-  namespace: default
-  labels:
-    app: gluetun
 spec:
   replicas: 1
   selector:
@@ -15,31 +12,22 @@ spec:
       labels:
         app: gluetun
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: pinode00
       containers:
       - name: gluetun
         image: qmcgaw/gluetun
-        envFrom:
-        - secretRef:
-            name: pia-creds
-        securityContext:
-          capabilities:
-            add: ["NET_ADMIN"]
-        volumeMounts:
-        - name: dev-net
-          mountPath: /dev/net
-        - name: etc-resolv-conf
-          mountPath: /etc/resolv.conf
-        - name: lib-modules
-          mountPath: /lib/modules
-      volumes:
-      - name: dev-net
-        hostPath:
-          path: /dev/net
-      - name: etc-resolv-conf
-        hostPath:
-          path: /etc/resolv.conf
-      - name: lib-modules
-        hostPath:
-          path: /lib/modules
+        env:
+        - name: VPN_SERVICE
+          value: "private internet access"
+        - name: PIA_USER
+          valueFrom:
+            secretKeyRef:
+              name: pia-creds
+              key: USERNAME
+        - name: PIA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pia-creds
+              key: PASSWORD
+        ports:
+        - containerPort: 51820
+        - containerPort: 8888
