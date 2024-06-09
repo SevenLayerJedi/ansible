@@ -21,7 +21,7 @@ sudo kubectl logs mysql-5879c7ccf7-xg7ll
 
 # Execute Shell
 sudo kubectl exec -it mysql-5bb8b89cbf-cqlpw -- /bin/sh
-sudo kubectl exec -it gluetun-cf9949447-2s6sk -- /bin/sh
+sudo kubectl exec -it gluetun-6b964c6d6-xjghj -- /bin/sh
 
 # Redploy
 sudo kubectl rollout restart deployment gluetun
