@@ -19,7 +19,7 @@ spec:
         kubernetes.io/hostname: pinode01
       containers:
       - name: gluetun
-        image: qmcgaw/private-internet-access:latest
+        image: qmcgaw/gluetun:latest
         env:
         - name: PIA_USER
           valueFrom:
