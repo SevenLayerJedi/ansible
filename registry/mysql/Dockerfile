@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
 
+# Set the environment variable to avoid prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
     cron \
@@ -24,12 +27,3 @@ RUN chmod +x /usr/local/bin/update_iptables.sh
 
 # Set environment variables for MySQL
 ENV MYSQL_ROOT_PASSWORD=admin
-ENV MYSQL_DATABASE=bbt
-ENV MYSQL_USER=admin
-ENV MYSQL_PASSWORD=admin
-
-# Expose MySQL port
-EXPOSE 3306
-
-# Start MySQL server and cron
-CMD service mysql start && cron -f
