@@ -25,7 +25,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: pia-creds
-              key: USERNAME
+              key: USER
         - name: PIA_PASS
           valueFrom:
             secretKeyRef:
