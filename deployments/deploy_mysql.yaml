@@ -17,8 +17,19 @@ spec:
       containers:
       - name: mysql
         image: bugbountytools/mysql-cron-ubuntu
+        command: ["/bin/bash", "-c", "--"]
+        args: ["while true; do sleep 30; done;"]
         ports:
         - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "admin"
+        - name: MYSQL_DATABASE
+          value: "bbt"
+        - name: MYSQL_USER
+          value: "admin"
+        - name: MYSQL_PASSWORD
+          value: "admin"
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
