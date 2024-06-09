@@ -15,32 +15,31 @@ spec:
       labels:
         app: gluetun
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: pinode00
       containers:
       - name: gluetun
         image: qmcgaw/gluetun
-        env:
-        - name: VPN_SERVICE_PROVIDER
-          value: "private internet access"
-        - name: OPENVPN_USER
-          valueFrom:
-            secretKeyRef:
-              name: pia-creds
-              key: PIA_USER
-        - name: OPENVPN_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: pia-creds
-              key: PIA_PASS
-        - name: SERVER_REGIONS
-          value: "Netherlands"
-        ports:
-        - containerPort: 8888
+        envFrom:
+        - secretRef:
+            name: pia-creds
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
         volumeMounts:
-        - name: gluetun-volume
-          mountPath: /gluetun
+        - name: dev-net
+          mountPath: /dev/net
+        - name: etc-resolv-conf
+          mountPath: /etc/resolv.conf
+        - name: lib-modules
+          mountPath: /lib/modules
       volumes:
-      - name: gluetun-volume
-        emptyDir: {}
+      - name: dev-net
+        hostPath:
+          path: /dev/net
+      - name: etc-resolv-conf
+        hostPath:
+          path: /etc/resolv.conf
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules
