@@ -45,6 +45,8 @@ spec:
           value: "admin"
         - name: MYSQL_PASSWORD
           value: "admin"
+        ports:
+        - containerPort: 3306
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
@@ -53,3 +55,16 @@ spec:
         hostPath:
           path: /opt/bbt/mysql
           type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: default
+spec:
+  selector:
+    app: mysql
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306

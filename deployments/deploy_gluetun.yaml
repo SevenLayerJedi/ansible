@@ -16,33 +16,23 @@ spec:
         app: gluetun
     spec:
       nodeSelector:
-        kubernetes.io/hostname: pinode00
+        kubernetes.io/hostname: pinode01
       containers:
       - name: gluetun
-        image: qmcgaw/gluetun
-        envFrom:
-        - secretRef:
-            name: pia-creds
-        securityContext:
-          capabilities:
-            add: ["NET_ADMIN"]
-        volumeMounts:
-        - name: dev-net
-          mountPath: /dev/net
-        - name: etc-resolv-conf
-          mountPath: /etc/resolv.conf
-        - name: lib-modules
-          mountPath: /lib/modules
-      volumes:
-      - name: dev-net
-        hostPath:
-          path: /dev/net
-      - name: etc-resolv-conf
-        hostPath:
-          path: /etc/resolv.conf
-      - name: lib-modules
-        hostPath:
-          path: /lib/modules
+        image: qmcgaw/private-internet-access:latest
+        env:
+        - name: PIA_USER
+          valueFrom:
+            secretKeyRef:
+              name: pia-creds
+              key: USERNAME
+        - name: PIA_PASS
+          valueFrom:
+            secretKeyRef:
+              name: pia-creds
+              key: PASSWORD
+        ports:
+        - containerPort: 8888
 ---
 apiVersion: v1
 kind: Service
@@ -54,5 +44,5 @@ spec:
     app: gluetun
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 8888
+    targetPort: 8888

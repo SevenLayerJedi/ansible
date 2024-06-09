@@ -19,26 +19,30 @@ spec:
         kubernetes.io/hostname: pinode01
       initContainers:
       - name: init-iptables
-        image: busybox
+        image: ubuntu:latest
         command:
         - /bin/sh
         - -c
         - |
-          ip route add default via $(dig +short gluetun.default.svc.cluster.local)
+          apt-get update && apt-get install -y iproute2 dnsutils
+          GLUETUN_IP=$(dig +short gluetun.default.svc.cluster.local)
+          if [ -z "$GLUETUN_IP" ]; then
+            echo "Failed to resolve gluetun service IP"
+            exit 1
+          fi
+          ip route add default via $GLUETUN_IP
+        securityContext:
+          privileged: true
       containers:
       - name: phpmyadmin
-        image: bugbountytools/phpmyadmin
-        ports:
-        - containerPort: 80
+        image: phpmyadmin:latest
         env:
-        - name: UPLOAD_LIMIT
-          value: "300M"
         - name: PMA_HOST
-          value: "mysql.default.svc.cluster.local"
+          value: mysql
         - name: PMA_PORT
           value: "3306"
-        - name: PMA_ARBITRARY
-          value: "1"
+        ports:
+        - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -52,5 +56,3 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 30081
-  type: NodePort
