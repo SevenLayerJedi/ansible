@@ -16,14 +16,14 @@ spec:
       - name: gluetun
         image: qmcgaw/gluetun
         env:
-        - name: VPN_SERVICE
+        - name: VPN_SERVICE_PROVIDER
           value: "private internet access"
-        - name: PIA_USER
+        - name: OPENVPN_USER
           valueFrom:
             secretKeyRef:
               name: pia-creds
               key: USERNAME
-        - name: PIA_PASSWORD
+        - name: OPENVPN_PASSWORD
           valueFrom:
             secretKeyRef:
               name: pia-creds
