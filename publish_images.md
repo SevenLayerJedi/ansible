@@ -22,6 +22,10 @@ docker push bugbountytools/mysql:latest
 
 
 
+# Push docker mysql image
+docker build -t bugbountytools/mysql-cron-ubuntu -f Dockerfile .
+docker push bugbountytools/mysql-cron-ubuntu
+
 # Login
 docker login
 
