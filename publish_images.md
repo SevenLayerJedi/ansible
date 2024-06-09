@@ -2,10 +2,13 @@
 docker login
 
 # Tag Image
-docker tag phpmyadmin bugbountytools/phpmyadmin:latest
+docker tag phpmyadmin bugbountytools/phpmyadmin-cron:latest
 
 # Publish image
-docker push bugbountytools/phpmyadmin:latest
+docker push bugbountytools/phpmyadmin-cron:latest
+
+# non interactive
+docker build --no-cache --progress=plain -t bugbountytools/mysql-cron-ubuntu -f Dockerfile .
 
 
 # Login
