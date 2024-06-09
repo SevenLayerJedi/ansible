@@ -23,12 +23,12 @@ spec:
         env:
         - name: VPN_SERVICE_PROVIDER
           value: "private internet access"
-        - name: PIA_USER
+        - name: OPENVPN_USER
           valueFrom:
             secretKeyRef:
               name: pia-creds
               key: PIA_USER
-        - name: PIA_PASS
+        - name: OPENVPN_PASS
           valueFrom:
             secretKeyRef:
               name: pia-creds
