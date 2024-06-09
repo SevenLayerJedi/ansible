@@ -22,6 +22,11 @@ sudo kubectl logs mysql-5879c7ccf7-xg7ll
 # Execute Shell
 sudo kubectl exec -it mysql-5bb8b89cbf-cqlpw -- /bin/sh
 sudo kubectl exec -it gluetun-6b964c6d6-xjghj -- /bin/sh
+sudo kubectl exec -it phpmyadmin-6d56c5bd4-m7smc -- /bin/sh
+
+# Test mysql container
+docker run -it --name mysql-debug bugbountytools/mysql-cron-ubuntu /bin/bash
+
 
 # Redploy
 sudo kubectl rollout restart deployment gluetun
