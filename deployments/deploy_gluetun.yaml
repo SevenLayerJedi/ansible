@@ -40,13 +40,3 @@ spec:
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: pia-creds
-  namespace: default
-type: Opaque
-data:
-  USERNAME: <base64-encoded-username>
-  PASSWORD: <base64-encoded-password>
