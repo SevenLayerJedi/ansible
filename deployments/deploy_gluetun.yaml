@@ -31,3 +31,7 @@ spec:
         ports:
         - containerPort: 51820
         - containerPort: 8888
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
+          privileged: true
