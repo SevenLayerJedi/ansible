@@ -21,28 +21,32 @@ spec:
       - name: gluetun
         image: qmcgaw/gluetun:latest
         env:
+        - name: VPNSP
+          value: "private internet access"
         - name: PIA_USER
           valueFrom:
             secretKeyRef:
               name: pia-creds
-              key: USER
+              key: USERNAME
         - name: PIA_PASS
           valueFrom:
             secretKeyRef:
               name: pia-creds
               key: PASSWORD
+        - name: TZ
+          value: "UTC"
         ports:
         - containerPort: 8888
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
 ---
 apiVersion: v1
-kind: Service
+kind: Secret
 metadata:
-  name: gluetun
+  name: pia-creds
   namespace: default
-spec:
-  selector:
-    app: gluetun
-  ports:
-  - protocol: TCP
-    port: 8888
-    targetPort: 8888
+type: Opaque
+data:
+  USERNAME: <base64-encoded-username>
+  PASSWORD: <base64-encoded-password>
