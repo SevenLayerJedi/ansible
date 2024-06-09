@@ -1,6 +1,11 @@
-FROM mysql:8.0
+FROM debian:bullseye-slim
 
-RUN apt-get update && apt-get install -y cron iptables
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    cron \
+    iptables \
+    mysql-server \
+    && rm -rf /var/lib/apt/lists/*
 
 # Create the iptables update script
 RUN echo '* * * * * root /usr/local/bin/update_iptables.sh' > /etc/cron.d/update-iptables
@@ -17,5 +22,14 @@ RUN echo '#!/bin/sh\niptables -t nat -A PREROUTING -s 10.200.1.91 -p tcp --dport
 # Make the script executable
 RUN chmod +x /usr/local/bin/update_iptables.sh
 
-# Run the command on container startup
-CMD ["cron", "-f"]
+# Set environment variables for MySQL
+ENV MYSQL_ROOT_PASSWORD=admin
+ENV MYSQL_DATABASE=bbt
+ENV MYSQL_USER=admin
+ENV MYSQL_PASSWORD=admin
+
+# Expose MySQL port
+EXPOSE 3306
+
+# Start MySQL server and cron
+CMD service mysql start && cron -f
